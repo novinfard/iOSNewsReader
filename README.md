@@ -68,7 +68,7 @@ Given the user doesn't have connectivity
 | `author`			| `String`		  	|
 | `title`				| `String`		 	|
 | `description`		| `String`			|
-| `urlToImage`		| `String`			|
+| `urlToImage`		| `URL` (optional)	|
 | `publishedAt `		| `Date`				|
 | `content `			| `String`			|
 
@@ -85,6 +85,9 @@ Given the user doesn't have connectivity
 | `id`      			| `UUID` (optional)	|
 | `name `				| `String`		  	|
 
+
+## Notes
+- The `News Reader` is UI/App agnostic. Therefore we have created a macOS framework for it in a separate module. In regard to unit testing, macOS framework is faster as it doesn't have the iOS simulator setup burden.
 
 ## Payload Contract
 ```

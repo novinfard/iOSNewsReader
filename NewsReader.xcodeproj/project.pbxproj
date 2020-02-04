@@ -10,6 +10,10 @@
 		CD11323123E8DA7B0026B935 /* NewsReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD11322723E8DA7B0026B935 /* NewsReader.framework */; };
 		CD11323623E8DA7B0026B935 /* NewsReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11323523E8DA7B0026B935 /* NewsReaderTests.swift */; };
 		CD11323823E8DA7B0026B935 /* NewsReader.h in Headers */ = {isa = PBXBuildFile; fileRef = CD11322A23E8DA7B0026B935 /* NewsReader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD11324223EA23B30026B935 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324123EA23B30026B935 /* Response.swift */; };
+		CD11324423EA24020026B935 /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324323EA24020026B935 /* NewsItem.swift */; };
+		CD11324623EA25100026B935 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324523EA25100026B935 /* Tag.swift */; };
+		CD11324823EA25430026B935 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324723EA25430026B935 /* Source.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +33,10 @@
 		CD11323023E8DA7B0026B935 /* NewsReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD11323523E8DA7B0026B935 /* NewsReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsReaderTests.swift; sourceTree = "<group>"; };
 		CD11323723E8DA7B0026B935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD11324123EA23B30026B935 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		CD11324323EA24020026B935 /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
+		CD11324523EA25100026B935 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		CD11324723EA25430026B935 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +81,7 @@
 			children = (
 				CD11322A23E8DA7B0026B935 /* NewsReader.h */,
 				CD11322B23E8DA7B0026B935 /* Info.plist */,
+				CD11324923EA273A0026B935 /* Models */,
 			);
 			path = NewsReader;
 			sourceTree = "<group>";
@@ -84,6 +93,17 @@
 				CD11323723E8DA7B0026B935 /* Info.plist */,
 			);
 			path = NewsReaderTests;
+			sourceTree = "<group>";
+		};
+		CD11324923EA273A0026B935 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CD11324123EA23B30026B935 /* Response.swift */,
+				CD11324323EA24020026B935 /* NewsItem.swift */,
+				CD11324523EA25100026B935 /* Tag.swift */,
+				CD11324723EA25430026B935 /* Source.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +168,7 @@
 				TargetAttributes = {
 					CD11322623E8DA7B0026B935 = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 					};
 					CD11322F23E8DA7B0026B935 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -195,6 +216,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD11324823EA25430026B935 /* Source.swift in Sources */,
+				CD11324623EA25100026B935 /* Tag.swift in Sources */,
+				CD11324223EA23B30026B935 /* Response.swift in Sources */,
+				CD11324423EA24020026B935 /* NewsItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +364,7 @@
 		CD11323C23E8DA7B0026B935 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -356,6 +382,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.novinfard.NewsReader;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -363,6 +390,7 @@
 		CD11323D23E8DA7B0026B935 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -387,6 +415,7 @@
 		CD11323F23E8DA7B0026B935 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = VQ3DDEUQ7K;
@@ -405,6 +434,7 @@
 		CD11324023E8DA7B0026B935 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = VQ3DDEUQ7K;
