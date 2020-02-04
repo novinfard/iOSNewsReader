@@ -1,0 +1,163 @@
+{
+    "status": "ok",
+    "totalResults": 10,
+    "news": [
+        {
+            "id": 11,
+            "source": {
+                "id": null,
+                "name": "Seekingalpha.com"
+            },
+            "author": "Dean Popplewell",
+            "title": "The Week Ahead - Virus Saga Continues, Iowa Caucuses Are Here, RBA To Deliver Dovish Hold, And U.S. NFP To See Slight Rebound",
+            "description": "The primary driver for financial markets remains the coronavirus and its potential impact on the global economy.In addition to all the incremental virus updates, it will be an extremely busy week with rate decisions, voters in Iowa hit the polls in the first …",
+            "urlToImage": "https://static3.seekingalpha.com/assets/og_image_192-59bfd51c9fe6af025b2f9f96c807e46f8e2f06c5ae787b15bf1423e6c676d4db.png",
+            "publishedAt": "2020-02-02T18:13:08Z",
+            "content": "By Ed Moya\r\nThe primary driver for financial markets remains the coronavirus and its potential impact on the global economy. It is still too early to forecast the peak of the virus or even the impact it will have on the Chinese economy. The virus was spreadin… [+12235 chars]"
+        },
+        {
+            "id": 14,
+            "source": {
+                "id": null,
+                "name": "Newsbtc.com"
+            },
+            "author": "Cole Petersen",
+            "title": "Analysts Expect Bitcoin to Fly Past $10,000 Because of These Key Factors",
+            "description": "Bitcoin (BTC) is currently in the process of revisiting its recently established 2020 highs of $9,550, with its ongoing upsurge coming close on the heels of yesterday evening’s selloff that led the crypto to dip as low as $9,200. Bull’s ability to post a stro…",
+            "urlToImage": "https://www.newsbtc.com/wp-content/uploads/2020/02/shutterstock_183227981-2-1200x780.jpg",
+            "publishedAt": "2020-02-02T18:00:38Z",
+            "content": "Bitcoin (BTC) is currently in the process of revisiting its recently established 2020 highs of $9,550, with its ongoing upsurge coming close on the heels of yesterday evenings selloff that led the crypto to dip as low as $9,200.\r\nBulls ability to post a stron… [+2647 chars]"
+        },
+        {
+            "id": 23,
+            "source": {
+                "id": null,
+                "name": "Cointelegraph.com"
+            },
+            "tags": [
+                {
+                    "name": "bitcoin",
+                    "id": 4
+                },
+                {
+                    "name": "crypto",
+                    "id": 34
+                }
+            ],
+            "author": "Cointelegraph By Rakesh Upadhyay",
+            "title": "Top 5 Cryptos This Week (Feb 2): ETC, LTC, ADA, MIOTA, ZEC",
+            "description": "The top crypto performers of this week have resumed their up move and are now likely to rally to their next overhead resistance levels",
+            "urlToImage": "https://images.cointelegraph.com/images/740_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS9zdG9yYWdlL3VwbG9hZHMvdmlldy9iYmQ0ODQzZmI2NTkyYmRmYzVhNDJjZTVhMTk4M2RjYS5qcGc=.jpg",
+            "publishedAt": "2020-02-02T17:30:00Z",
+            "content": "Several major altcoins have outperformed Bitcoin in January 2020. However, with the reward halving just over three months away, Bitcoin might play catch up. During the previous two halvings, Bitcoin rallied just before and after the event. Weiss Ratings belie… [+7184 chars]"
+        },
+        {
+            "id": 87,
+            "source": {
+                "id": null,
+                "name": "Androidauthority.com"
+            },
+            "author": "AA Picks",
+            "title": "Harness the power of your Raspberry Pi for just $34",
+            "description": "The Raspberry Pi Mastery Bundle teaches you about robotics, home automation, Bitcoin mining, and much more.",
+            "urlToImage": "https://cdn57.androidauthority.net/wp-content/uploads/2019/12/Raspberry-Pi-on-Keyboard-920x470.jpg",
+            "publishedAt": "2020-02-02T17:00:31Z",
+            "content": "The potential of a Raspberry Pi is only limited by the know-how of the owner. From drones to gaming stations, the possibilities are almost endless.\r\nThe Raspberry Pi Mastery Bundle can do just that, and the best part is that it’s 96% offtoday. This eight-part… [+955 chars]"
+        },
+        {
+            "id": 101,
+            "source": {
+                "id": 8,
+                "name": "Letstalkbitcoin.com"
+            },
+            "author": "adam@letstalkbitcoin.com, adam@letstalkbitcoin.com",
+            "title": "Let's Talk Bitcoin! #425 Libre Not Libra '\" Thinking Critically About Facebook's Blockchain Project",
+            "description": "On Today's Show... Andreas answers the burning question' Has he tried haggis? Just kidding' He shares his thoughts on the recently released Libra whitepaper, as part of a permissioned blockchain project spearheaded by Facebook. This episode of Let's Talk Bitc…",
+            "urlToImage": "https://letstalkbitcoin.com/files/blogs/8430-8bd4611a628915bfe7a955dc442990f76b106879c3621f52e868841498412b4a.jpg",
+            "publishedAt": "2020-02-02T17:00:00Z",
+            "content": "Click to download audio version\r\nAndreas answers the burning question Has he tried haggis? Just kidding He shares his thoughts on the recently released Libra whitepaper, as part of a permissioned blockchain project spearheaded by Facebook.\r\nThis episode of Le… [+1519 chars]"
+        },
+        {
+            "id": 130,
+            "source": {
+                "id": 8,
+                "name": "Letstalkbitcoin.com"
+            },
+            "author": "adam@letstalkbitcoin.com (The LTB Network), The LTB Network",
+            "title": "Let's Talk Bitcoin! #425 Libre Not Libra '\" Thinking Critically About Facebook's Blockchain Project",
+            "description": "On Today's Show... Andreas answers the burning question' Has he tried haggis? Just kidding' He shares his thoughts on the recently released Libra whitepaper, as part of a permissioned blockchain project spearheaded by Facebook. This episode of Let's Talk Bitc…",
+            "urlToImage": "https://letstalkbitcoin.com/files/blogs/8430-8bd4611a628915bfe7a955dc442990f76b106879c3621f52e868841498412b4a.jpg",
+            "publishedAt": "2020-02-02T17:00:00Z",
+            "content": "Click to download audio version\r\nAndreas answers the burning question Has he tried haggis? Just kidding He shares his thoughts on the recently released Libra whitepaper, as part of a permissioned blockchain project spearheaded by Facebook.\r\nThis episode of Le… [+1519 chars]"
+        },
+        {
+            "id": 141,
+            "source": {
+                "id": 8,
+                "name": "Letstalkbitcoin.com"
+            },
+            "author": "adam@letstalkbitcoin.com (The LTB Network), The LTB Network",
+            "title": "CryptoQuikRead_346 - The Kindest Cut; Why The 2020 Bitcoin Halving [Peter C. Earle]",
+            "description": "\"What's noteworthy about this point is that, upon this particular halving, Bitcoin 'œinflating' at a roughly 1.8 percent rate annually will nominally '\" and by then, quite possibly in real terms '\" be 'œinflating' at a rate lower than both the Federal Reserve…",
+            "urlToImage": "https://letstalkbitcoin.com/files/blogs/8429-0426e94c8518501e135bce9382bec5fb1d787490ace8ace8f1bd53abfb063832.jpg",
+            "publishedAt": "2020-02-02T16:50:00Z",
+            "content": "Click to download audio version\r\n\"Whats noteworthy about this point is that, upon this particular halving, Bitcoin inflating at a roughly 1.8 percent rate annually will nominally and by then, quite possibly in real terms be inflating at a rate lower than both… [+1524 chars]"
+        },
+        {
+            "id": 155,
+            "source": {
+                "id": null,
+                "name": "Coindesk.com"
+            },
+            "tags": [
+                {
+                    "name": "fintech",
+                    "id": 11
+                }
+            ],
+            "author": "Adam B. Levine",
+            "title": "Libre Not Libra – Thinking Critically About Facebook’s Blockchain Project",
+            "description": "Years of jokes about “FaceCoin” and “ZuckBucks” have finally come to life – sort of.",
+            "urlToImage": "https://static.coindesk.com/wp-content/uploads/2016/05/Andreas_M_Antonopoulos_in_Zurich_2016-wiki.jpg",
+            "publishedAt": "2020-02-02T16:20:00Z",
+            "content": "In Libre Not Libra: Facebooks Blockchain Project, Andreas answers the burning question Has he tried haggis? Just kidding He shares his thoughts on the recently released Libra whitepaper, as part of a permissioned blockchain project spearheaded by Facebook. \r\n… [+1998 chars]"
+        },
+        {
+            "id": 173,
+            "source": {
+                "id": 97,
+                "name": "Innovationexcellence.com"
+            },
+            "author": "Greg Satell",
+            "title": "The Limited Value Of Ideas",
+            "description": "There is a line of thinking that says that the world is built on ideas. It was an idea that launched the American Revolution and created a nation. It was an idea that led Albert Einstein to pursue relativity, Linus Pauling to invent a vaccine and for Steve Jo…",
+            "urlToImage": null,
+            "publishedAt": "2020-02-02T15:00:18Z",
+            "content": "by Greg Satell\r\nThere is a line of thinking that says that the world is built on ideas. It was an idea that launched the American Revolution and created a nation. It was an idea that led Albert Einstein to pursue relativity, Linus Pauling to invent a vaccine … [+7391 chars]"
+        },
+        {
+            "id": 190,
+            "source": {
+                "id": null,
+                "name": "Bitcoinist.com"
+            },
+            "tags": [
+                {
+                    "name": "fintech",
+                    "id": 11
+                },
+                {
+                    "name": "crypto",
+                    "id": 34
+                }
+            ],
+            "author": "Christine Vasileva",
+            "title": "Crypto Weekend Gains: ETH, ADA, XRP Pump on Sunday",
+            "description": "Bitcoin (BTC) momentum has stalled this weekend but a selection of other crypto-assets are showing promising gains today. Namely XRP (XRP), Ethereum (ETH) and Cardano (ADA). ETH Regained Higher Range, Shoots for $200 Ethereum (ETH) quickly regained its $180 r…",
+            "url": "https://bitcoinist.com/crypto-weekend-gains-eth-ada-xrp-pump-on-sunday/",
+            "urlToImage": "https://bitcoinist.com/wp-content/uploads/2019/12/shutterstock_1050589055-1920x1200.jpg",
+            "publishedAt": "2020-02-02T15:00:12Z",
+            "content": "Bitcoin (BTC) momentum has stalled this weekend but a selection of other crypto-assets are showing promising gains today. Namely XRP (XRP), Ethereum (ETH) and Cardano (ADA).\r\nETH Regained Higher Range, Shoots for $200\r\nEthereum (ETH) quickly regained its $180… [+2673 chars]"
+        }
+    ]
+}
