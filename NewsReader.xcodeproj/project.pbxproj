@@ -83,8 +83,7 @@
 			children = (
 				CD11322A23E8DA7B0026B935 /* NewsReader.h */,
 				CD11322B23E8DA7B0026B935 /* Info.plist */,
-				CD11324923EA273A0026B935 /* Models */,
-				CD11324A23EA29780026B935 /* NewsReader.swift */,
+				CD11324D23EA2AF40026B935 /* Reader Feature */,
 			);
 			path = NewsReader;
 			sourceTree = "<group>";
@@ -107,6 +106,15 @@
 				CD11324723EA25430026B935 /* Source.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CD11324D23EA2AF40026B935 /* Reader Feature */ = {
+			isa = PBXGroup;
+			children = (
+				CD11324923EA273A0026B935 /* Models */,
+				CD11324A23EA29780026B935 /* NewsReader.swift */,
+			);
+			path = "Reader Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
