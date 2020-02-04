@@ -14,6 +14,7 @@
 		CD11324423EA24020026B935 /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324323EA24020026B935 /* NewsItem.swift */; };
 		CD11324623EA25100026B935 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324523EA25100026B935 /* Tag.swift */; };
 		CD11324823EA25430026B935 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324723EA25430026B935 /* Source.swift */; };
+		CD11324B23EA29780026B935 /* NewsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324A23EA29780026B935 /* NewsReader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		CD11324323EA24020026B935 /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
 		CD11324523EA25100026B935 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		CD11324723EA25430026B935 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
+		CD11324A23EA29780026B935 /* NewsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				CD11322A23E8DA7B0026B935 /* NewsReader.h */,
 				CD11322B23E8DA7B0026B935 /* Info.plist */,
 				CD11324923EA273A0026B935 /* Models */,
+				CD11324A23EA29780026B935 /* NewsReader.swift */,
 			);
 			path = NewsReader;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD11324B23EA29780026B935 /* NewsReader.swift in Sources */,
 				CD11324823EA25430026B935 /* Source.swift in Sources */,
 				CD11324623EA25100026B935 /* Tag.swift in Sources */,
 				CD11324223EA23B30026B935 /* Response.swift in Sources */,
