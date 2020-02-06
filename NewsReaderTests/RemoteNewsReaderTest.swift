@@ -21,12 +21,12 @@ class RemoteNewsReader {
 
 }
 
-class HTTPClient {
-	func get(from url: URL) {}
+protocol HTTPClient {
+	func get(from url: URL)
 }
 
 class HTTPClientSpy: HTTPClient {
-	override func get(from url: URL) {
+	func get(from url: URL) {
 		self.requestedUrl = url
 
 	}
