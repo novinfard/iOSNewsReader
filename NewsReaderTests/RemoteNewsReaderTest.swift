@@ -54,12 +54,10 @@ class RemoteNewsReaderTest: XCTestCase {
 		let (sut, client) = self.makeSut()
 		client.error = NSError(domain: "Test", code: 0)
 
-		var capturedError: RemoteNewsReader.Error?
-		sut.load { error in
-			capturedError = error
-		}
+		var capturedErrors = [RemoteNewsReader.Error]()
+		sut.load { capturedErrors.append($0) }
 
-		XCTAssertEqual(capturedError, .connectivity)
+		XCTAssertEqual(capturedErrors, [.connectivity])
 	}
 
 
