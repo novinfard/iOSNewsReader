@@ -9,23 +9,47 @@
 import XCTest
 
 class RemoteNewsReader {
+	func load() {
+		HTTPClient.shared.requestedUrl = URL(string: "https://a-sample-url.com")
+	}
 
 }
 
 class HTTPClient {
+	static let shared = HTTPClient()
+
+	private init() {}
+
 	var requestedUrl: URL?
 }
 
 class RemoteNewsReaderTest: XCTestCase {
 
-	func test_init_doesNotRequestData() {
-		let client = HTTPClient()
+	func test_init_doesNotRequestDataFromUrl() {
+		// Given
+		let client = HTTPClient.shared
 		_ = RemoteNewsReader()
 
+		// When
+		// Nothing requested
+
+		// Then
 		XCTAssertNil(
 			client.requestedUrl,
-			"When we don't request the data, the url of our HTTP client should be nil"
+			"As we didn't request the data, the url of our HTTP client should be nil"
 		)
+	}
+
+	func test_load_requestsDataFromUrl() {
+		// Given
+		let client = HTTPClient.shared
+		let sut = RemoteNewsReader()
+
+		// When
+		sut.load()
+
+		// Then
+		XCTAssertNotNil(client.requestedUrl)
 	}
 
 }
