@@ -37,6 +37,20 @@ class RemoteNewsReaderTest: XCTestCase {
 		XCTAssertEqual(client.requestedUrl, url)
 	}
 
+	func test_loadTwice_requestsDataFromUrlTwice() {
+		// Given
+		let url = URL(string: "https://a-sample-given-url.com")!
+		let (sut, client) = self.makeSut(url: url)
+
+		// When
+		sut.load()
+		sut.load()
+
+		// Then
+		XCTAssertEqual(client.requestedUrls, [url, url])
+	}
+
+
 }
 
 // Mark: - Helpers
@@ -49,9 +63,11 @@ extension RemoteNewsReaderTest {
 
 	private class HTTPClientSpy: HTTPClient {
 		var requestedUrl: URL?
+		var requestedUrls = [URL]()
 
 		func get(from url: URL) {
 			self.requestedUrl = url
+			self.requestedUrls.append(url)
 
 		}
 	}
