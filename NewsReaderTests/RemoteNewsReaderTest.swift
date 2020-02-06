@@ -65,6 +65,19 @@ class RemoteNewsReaderTest: XCTestCase {
 		XCTAssertEqual(capturedErrors, [.connectivity])
 	}
 
+	func test_load_ErrorRaisedNon200HTTPResponse() {
+		// Given
+		let (sut, client) = self.makeSut()
+
+		// When
+		var capturedErrors = [RemoteNewsReader.Error]()
+		sut.load { capturedErrors.append($0) }
+
+		client.complete(withStatusCode: 400)
+
+		// Then
+		XCTAssertEqual(capturedErrors, [.invalidData])
+	}
 
 }
 
@@ -78,18 +91,28 @@ extension RemoteNewsReaderTest {
 
 	private class HTTPClientSpy: HTTPClient {
 
-		private var messages = [(url: URL, completions: (Error) -> Void)]()
+		private var messages = [(url: URL, completions: (Error?, HTTPURLResponse?) -> Void)]()
 
 		var requestedUrls: [URL] {
 			self.messages.map({$0.url})
 		}
 
-		func get(from url: URL, completion: @escaping (Error) -> Void) {
+		func get(from url: URL, completion: @escaping (Error?, HTTPURLResponse?) -> Void) {
 			self.messages.append((url, completion))
 		}
 
 		func complete(with error: Error, at index: Int = 0) {
-			self.messages[index].completions(error)
+			self.messages[index].completions(error, nil)
+		}
+
+		func complete(withStatusCode code: Int, at index: Int = 0) {
+			let response = HTTPURLResponse(
+				url: requestedUrls[index],
+				statusCode: code,
+				httpVersion: nil,
+				headerFields: nil
+			)
+			self.messages[index].completions(nil, response)
 		}
 	}
 }

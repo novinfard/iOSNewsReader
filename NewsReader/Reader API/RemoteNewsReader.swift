@@ -11,7 +11,7 @@ import Foundation
 public protocol HTTPClient {
 	func get(
 		from url: URL,
-		completion: @escaping (Error) -> Void
+		completion: @escaping (Error?, HTTPURLResponse?) -> Void
 	)
 }
 
@@ -21,6 +21,7 @@ public final class RemoteNewsReader {
 
 	public enum Error: Swift.Error {
 		case connectivity
+		case invalidData
 	}
 
 	public init(url: URL, client: HTTPClient) {
@@ -29,8 +30,13 @@ public final class RemoteNewsReader {
 	}
 
 	public func load(completion: @escaping (Error) -> Void) {
-		client.get(from: url, completion: { error in
-			completion(.connectivity)
+		client.get(from: url, completion: { error, response in
+
+			if response != nil {
+				completion(.invalidData)
+			} else {
+				completion(.connectivity)
+			}
 		})
 	}
 
