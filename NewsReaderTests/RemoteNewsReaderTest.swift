@@ -10,24 +10,33 @@ import XCTest
 
 class RemoteNewsReader {
 	func load() {
-		HTTPClient.shared.requestedUrl = URL(string: "https://a-sample-url.com")
+		HTTPClient.shared.get(from: URL(string: "https://a-sample-url.com")!)
 	}
 
 }
 
 class HTTPClient {
-	static let shared = HTTPClient()
+	static var shared = HTTPClient()
 
-	private init() {}
+	func get(from url: URL) {}
+}
+
+class HTTPClientSpy: HTTPClient {
+	override func get(from url: URL) {
+		self.requestedUrl = url
+
+	}
 
 	var requestedUrl: URL?
+
 }
 
 class RemoteNewsReaderTest: XCTestCase {
 
 	func test_init_doesNotRequestDataFromUrl() {
 		// Given
-		let client = HTTPClient.shared
+		let client = HTTPClientSpy()
+		HTTPClient.shared = client
 		_ = RemoteNewsReader()
 
 		// When
@@ -42,7 +51,8 @@ class RemoteNewsReaderTest: XCTestCase {
 
 	func test_load_requestsDataFromUrl() {
 		// Given
-		let client = HTTPClient.shared
+		let client = HTTPClientSpy()
+		HTTPClient.shared = client
 		let sut = RemoteNewsReader()
 
 		// When
