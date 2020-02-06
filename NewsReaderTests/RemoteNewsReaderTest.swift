@@ -50,6 +50,18 @@ class RemoteNewsReaderTest: XCTestCase {
 		XCTAssertEqual(client.requestedUrls, [url, url])
 	}
 
+	func test_load_connectivityErrorRaised() {
+		let (sut, client) = self.makeSut()
+		client.error = NSError(domain: "Test", code: 0)
+
+		var capturedError: RemoteNewsReader.Error?
+		sut.load { error in
+			capturedError = error
+		}
+
+		XCTAssertEqual(capturedError, .connectivity)
+	}
+
 
 }
 
@@ -63,8 +75,12 @@ extension RemoteNewsReaderTest {
 
 	private class HTTPClientSpy: HTTPClient {
 		var requestedUrls = [URL]()
+		var error: Error?
 
-		func get(from url: URL) {
+		func get(from url: URL, completion: (Error) -> Void) {
+			if let error = error {
+				completion(error)
+			}
 			self.requestedUrls.append(url)
 
 		}
