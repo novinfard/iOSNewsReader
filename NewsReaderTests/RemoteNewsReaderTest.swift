@@ -59,7 +59,7 @@ class RemoteNewsReaderTest: XCTestCase {
 		sut.load { capturedErrors.append($0) }
 
 		let error = NSError(domain: "Test", code: 0)
-		client.completions[0](error)
+		client.complete(with: error)
 
 		// Then
 		XCTAssertEqual(capturedErrors, [.connectivity])
@@ -83,7 +83,10 @@ extension RemoteNewsReaderTest {
 		func get(from url: URL, completion: @escaping (Error) -> Void) {
 			self.completions.append(completion)
 			self.requestedUrls.append(url)
+		}
 
+		func complete(with error: Error, at index: Int = 0) {
+			completions[0](error)
 		}
 	}
 }
