@@ -27,23 +27,11 @@ protocol HTTPClient {
 	func get(from url: URL)
 }
 
-class HTTPClientSpy: HTTPClient {
-	func get(from url: URL) {
-		self.requestedUrl = url
-
-	}
-
-	var requestedUrl: URL?
-
-}
-
 class RemoteNewsReaderTest: XCTestCase {
 
 	func test_init_doesNotRequestDataFromUrl() {
 		// Given
-		let url = URL(string: "https://a-sample-url.com")!
-		let client = HTTPClientSpy()
-		_ = RemoteNewsReader(url: url, client: client)
+		let (_, client) = makeSut()
 
 		// When
 		// Nothing requested
@@ -58,8 +46,7 @@ class RemoteNewsReaderTest: XCTestCase {
 	func test_load_requestsDataFromUrl() {
 		// Given
 		let url = URL(string: "https://a-sample-given-url.com")!
-		let client = HTTPClientSpy()
-		let sut = RemoteNewsReader(url: url, client: client)
+		let (sut, client) = self.makeSut(url: url)
 
 		// When
 		sut.load()
@@ -68,4 +55,22 @@ class RemoteNewsReaderTest: XCTestCase {
 		XCTAssertEqual(client.requestedUrl, url)
 	}
 
+}
+
+// Mark: - Helpers
+extension RemoteNewsReaderTest {
+	private func makeSut(url: URL = URL(string: "https://a-sample-url.com")!) -> (sut: RemoteNewsReader, client: HTTPClientSpy) {
+		let client = HTTPClientSpy()
+		let sut = RemoteNewsReader(url: url, client: client)
+		return (sut, client)
+	}
+
+	private class HTTPClientSpy: HTTPClient {
+		var requestedUrl: URL?
+
+		func get(from url: URL) {
+			self.requestedUrl = url
+
+		}
+	}
 }
