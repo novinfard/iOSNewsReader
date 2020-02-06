@@ -31,7 +31,7 @@ class RemoteNewsReaderTest: XCTestCase {
 		let (sut, client) = self.makeSut(url: url)
 
 		// When
-		sut.load()
+		sut.load { _ in }
 
 		// Then
 		XCTAssertEqual(client.requestedUrls, [url])
@@ -43,8 +43,8 @@ class RemoteNewsReaderTest: XCTestCase {
 		let (sut, client) = self.makeSut(url: url)
 
 		// When
-		sut.load()
-		sut.load()
+		sut.load { _ in }
+		sut.load { _ in }
 
 		// Then
 		XCTAssertEqual(client.requestedUrls, [url, url])
