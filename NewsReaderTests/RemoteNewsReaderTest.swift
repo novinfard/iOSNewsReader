@@ -94,18 +94,18 @@ extension RemoteNewsReaderTest {
 
 	private class HTTPClientSpy: HTTPClient {
 
-		private var messages = [(url: URL, completions: (Error?, HTTPURLResponse?) -> Void)]()
+		private var messages = [(url: URL, completions: (HTTPClientResult) -> Void)]()
 
 		var requestedUrls: [URL] {
 			self.messages.map({$0.url})
 		}
 
-		func get(from url: URL, completion: @escaping (Error?, HTTPURLResponse?) -> Void) {
+		func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
 			self.messages.append((url, completion))
 		}
 
 		func complete(with error: Error, at index: Int = 0) {
-			self.messages[index].completions(error, nil)
+			self.messages[index].completions(.failure(error))
 		}
 
 		func complete(withStatusCode code: Int, at index: Int = 0) {
@@ -114,8 +114,8 @@ extension RemoteNewsReaderTest {
 				statusCode: code,
 				httpVersion: nil,
 				headerFields: nil
-			)
-			self.messages[index].completions(nil, response)
+			)!
+			self.messages[index].completions(.success(response))
 		}
 	}
 }
