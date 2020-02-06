@@ -19,9 +19,9 @@ class RemoteNewsReaderTest: XCTestCase {
 		// Nothing requested
 
 		// Then
-		XCTAssertNil(
-			client.requestedUrl,
-			"As we didn't request the data, the url of our HTTP client should be nil"
+		XCTAssertTrue(
+			client.requestedUrls.isEmpty,
+			"As we didn't request the data, the url array of our HTTP client should be empty"
 		)
 	}
 
@@ -34,7 +34,7 @@ class RemoteNewsReaderTest: XCTestCase {
 		sut.load()
 
 		// Then
-		XCTAssertEqual(client.requestedUrl, url)
+		XCTAssertEqual(client.requestedUrls, [url])
 	}
 
 	func test_loadTwice_requestsDataFromUrlTwice() {
@@ -62,11 +62,9 @@ extension RemoteNewsReaderTest {
 	}
 
 	private class HTTPClientSpy: HTTPClient {
-		var requestedUrl: URL?
 		var requestedUrls = [URL]()
 
 		func get(from url: URL) {
-			self.requestedUrl = url
 			self.requestedUrls.append(url)
 
 		}
