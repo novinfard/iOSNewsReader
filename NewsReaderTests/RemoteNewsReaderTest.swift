@@ -69,14 +69,17 @@ class RemoteNewsReaderTest: XCTestCase {
 		// Given
 		let (sut, client) = self.makeSut()
 
-		// When
-		var capturedErrors = [RemoteNewsReader.Error]()
-		sut.load { capturedErrors.append($0) }
+		let samples = [199, 200, 300, 400, 403, 404, 500]
+		samples.enumerated().forEach { index, error in
+			// When
+			var capturedErrors = [RemoteNewsReader.Error]()
+			sut.load { capturedErrors.append($0) }
 
-		client.complete(withStatusCode: 400)
+			client.complete(withStatusCode: error, at: index)
 
-		// Then
-		XCTAssertEqual(capturedErrors, [.invalidData])
+			// Then
+			XCTAssertEqual(capturedErrors, [.invalidData])
+		}
 	}
 
 }
