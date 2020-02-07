@@ -82,6 +82,19 @@ class RemoteNewsReaderTest: XCTestCase {
 		}
 	}
 
+	func test_load_invalidJsonErrorRaise() {
+		let (sut, client) = self.makeSut()
+
+		var capturedErrors = [RemoteNewsReader.Error]()
+		sut.load { capturedErrors.append($0) }
+
+		let invalidJsonData = Data("invalid json".utf8)
+		client.complete(withStatusCode: 200, data: invalidJsonData)
+
+		XCTAssertEqual(capturedErrors, [.invalidData])
+
+	}
+
 }
 
 // Mark: - Helpers
@@ -108,14 +121,16 @@ extension RemoteNewsReaderTest {
 			self.messages[index].completions(.failure(error))
 		}
 
-		func complete(withStatusCode code: Int, at index: Int = 0) {
+		func complete(withStatusCode code: Int,
+					  data: Data = Data(),
+					  at index: Int = 0) {
 			let response = HTTPURLResponse(
 				url: requestedUrls[index],
 				statusCode: code,
 				httpVersion: nil,
 				headerFields: nil
 			)!
-			self.messages[index].completions(.success(response))
+			self.messages[index].completions(.success(data, response))
 		}
 	}
 }
