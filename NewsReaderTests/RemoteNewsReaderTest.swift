@@ -79,6 +79,22 @@ class RemoteNewsReaderTest: XCTestCase {
 		})
 	}
 
+	func test_load_deliverNoItemsOnEmptyListResponse() {
+		let (sut, client) = self.makeSut()
+
+		var capturedResults = [RemoteNewsReader.Result]()
+		sut.load { capturedResults.append($0) }
+
+		let invalidJsonData = Data("""
+		{\"status\": \"ok\",
+		\"totalResults\": 0,
+		\"news\": [] }
+		""".utf8)
+		client.complete(withStatusCode: 200, data: invalidJsonData)
+
+		XCTAssertEqual(capturedResults, [.success([])])
+	}
+
 }
 
 // Mark: - Helpers
