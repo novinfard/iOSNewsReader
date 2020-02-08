@@ -53,7 +53,7 @@ class RemoteNewsReaderTest: XCTestCase {
 	func test_load_connectivityErrorRaised() {
 		let (sut, client) = self.makeSut()
 
-		self.expect(sut, toCompleteWithError: .connectivity, when: {
+		self.expect(sut, toCompleteWith: .failure(.connectivity), when: {
 			let error = NSError(domain: "Test", code: 0)
 			client.complete(with: error)
 		})
@@ -64,7 +64,7 @@ class RemoteNewsReaderTest: XCTestCase {
 
 		let samples = [199, 200, 300, 400, 403, 404, 500]
 		samples.enumerated().forEach { index, error in
-			self.expect(sut, toCompleteWithError: .invalidData, when: {
+			self.expect(sut, toCompleteWith: .failure(.invalidData), when: {
 				client.complete(withStatusCode: error, at: index)
 			})
 		}
@@ -73,7 +73,7 @@ class RemoteNewsReaderTest: XCTestCase {
 	func test_load_invalidJsonErrorRaise() {
 		let (sut, client) = self.makeSut()
 
-		self.expect(sut, toCompleteWithError: .invalidData, when: {
+		self.expect(sut, toCompleteWith: .failure(.invalidData), when: {
 			let invalidJsonData = Data("invalid json".utf8)
 			client.complete(withStatusCode: 200, data: invalidJsonData)
 		})
@@ -82,17 +82,15 @@ class RemoteNewsReaderTest: XCTestCase {
 	func test_load_deliverNoItemsOnEmptyListResponse() {
 		let (sut, client) = self.makeSut()
 
-		var capturedResults = [RemoteNewsReader.Result]()
-		sut.load { capturedResults.append($0) }
+		self.expect(sut, toCompleteWith: .success([]), when: {
+			let emptyNewsJsonData = Data("""
+			{\"status\": \"ok\",
+			\"totalResults\": 0,
+			\"news\": [] }
+			""".utf8)
+			client.complete(withStatusCode: 200, data: emptyNewsJsonData)
 
-		let invalidJsonData = Data("""
-		{\"status\": \"ok\",
-		\"totalResults\": 0,
-		\"news\": [] }
-		""".utf8)
-		client.complete(withStatusCode: 200, data: invalidJsonData)
-
-		XCTAssertEqual(capturedResults, [.success([])])
+		})
 	}
 
 }
@@ -106,7 +104,7 @@ extension RemoteNewsReaderTest {
 	}
 
 	private func expect(_ sut: RemoteNewsReader,
-						toCompleteWithError error: RemoteNewsReader.Error,
+						toCompleteWith result: RemoteNewsReader.Result,
 						when action: () -> Void,
 						file: StaticString = #file,
 						line: UInt = #line) {
@@ -117,7 +115,7 @@ extension RemoteNewsReaderTest {
 
 		XCTAssertEqual(
 			capturedResults,
-			[.failure(error)],
+			[result],
 			file: file,
 			line: line
 		)
