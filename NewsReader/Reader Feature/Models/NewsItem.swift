@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NewsItem {
+public struct NewsItem: Equatable {
 	let id: UUID
 	let source: Source
 	let tags: [Tag]?

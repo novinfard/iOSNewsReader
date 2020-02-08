@@ -94,14 +94,14 @@ extension RemoteNewsReaderTest {
 						when action: () -> Void,
 						file: StaticString = #file,
 						line: UInt = #line) {
-		var capturedErrors = [RemoteNewsReader.Error]()
-		sut.load { capturedErrors.append($0) }
+		var capturedResults = [RemoteNewsReader.Result]()
+		sut.load { capturedResults.append($0) }
 
 		action()
 
 		XCTAssertEqual(
-			capturedErrors,
-			[error],
+			capturedResults,
+			[.failure(error)],
 			file: file,
 			line: line
 		)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Tag {
+struct Tag: Equatable {
 	let id: UUID
 	let name: String
 }

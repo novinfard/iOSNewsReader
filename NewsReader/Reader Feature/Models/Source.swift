@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Source {
+struct Source: Equatable {
 	let id: UUID?
 	let name: String
 }
