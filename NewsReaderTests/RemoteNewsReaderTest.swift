@@ -51,48 +51,32 @@ class RemoteNewsReaderTest: XCTestCase {
 	}
 
 	func test_load_connectivityErrorRaised() {
-		// Given
 		let (sut, client) = self.makeSut()
 
-		// When
-		var capturedErrors = [RemoteNewsReader.Error]()
-		sut.load { capturedErrors.append($0) }
-
-		let error = NSError(domain: "Test", code: 0)
-		client.complete(with: error)
-
-		// Then
-		XCTAssertEqual(capturedErrors, [.connectivity])
+		self.expect(sut, toCompleteWithError: .connectivity, when: {
+			let error = NSError(domain: "Test", code: 0)
+			client.complete(with: error)
+		})
 	}
 
 	func test_load_ErrorRaisedNon200HTTPResponse() {
-		// Given
 		let (sut, client) = self.makeSut()
 
 		let samples = [199, 200, 300, 400, 403, 404, 500]
 		samples.enumerated().forEach { index, error in
-			// When
-			var capturedErrors = [RemoteNewsReader.Error]()
-			sut.load { capturedErrors.append($0) }
-
-			client.complete(withStatusCode: error, at: index)
-
-			// Then
-			XCTAssertEqual(capturedErrors, [.invalidData])
+			self.expect(sut, toCompleteWithError: .invalidData, when: {
+				client.complete(withStatusCode: error, at: index)
+			})
 		}
 	}
 
 	func test_load_invalidJsonErrorRaise() {
 		let (sut, client) = self.makeSut()
 
-		var capturedErrors = [RemoteNewsReader.Error]()
-		sut.load { capturedErrors.append($0) }
-
-		let invalidJsonData = Data("invalid json".utf8)
-		client.complete(withStatusCode: 200, data: invalidJsonData)
-
-		XCTAssertEqual(capturedErrors, [.invalidData])
-
+		self.expect(sut, toCompleteWithError: .invalidData, when: {
+			let invalidJsonData = Data("invalid json".utf8)
+			client.complete(withStatusCode: 200, data: invalidJsonData)
+		})
 	}
 
 }
@@ -103,6 +87,24 @@ extension RemoteNewsReaderTest {
 		let client = HTTPClientSpy()
 		let sut = RemoteNewsReader(url: url, client: client)
 		return (sut, client)
+	}
+
+	private func expect(_ sut: RemoteNewsReader,
+						toCompleteWithError error: RemoteNewsReader.Error,
+						when action: () -> Void,
+						file: StaticString = #file,
+						line: UInt = #line) {
+		var capturedErrors = [RemoteNewsReader.Error]()
+		sut.load { capturedErrors.append($0) }
+
+		action()
+
+		XCTAssertEqual(
+			capturedErrors,
+			[error],
+			file: file,
+			line: line
+		)
 	}
 
 	private class HTTPClientSpy: HTTPClient {
