@@ -127,6 +127,20 @@ class RemoteNewsReaderTest: XCTestCase {
 
 	}
 
+	func test_load_doesNotEmitResultAfterSutDeallocated() {
+		let url = URL(string: "https://a-url.com")!
+		let client = HTTPClientSpy()
+		var sut: RemoteNewsReader? = RemoteNewsReader(url: url, client: client)
+
+		var capturedResults = [RemoteNewsReader.Result]()
+		sut?.load { capturedResults.append($0) }
+
+		sut = nil
+		client.complete(withStatusCode: 200, data: makeItemsJson([]))
+
+		XCTAssertTrue(capturedResults.isEmpty)
+	}
+
 
 	func skipped_test_jsonCodable_iso8601() {
 		let dates = [Date()] // ["Feb 9, 2020 at 12:55:24 PM"]
