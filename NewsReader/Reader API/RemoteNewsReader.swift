@@ -42,16 +42,19 @@ public final class RemoteNewsReader {
 	public func load(completion: @escaping (Result) -> Void) {
 		client.get(from: url, completion: { result in
 			switch result {
-			case let .success(data, _):
+			case let .success(data, response):
+				if response.statusCode == 200 {
+					do {
+						let jsonDecoder = JSONDecoder()
+						jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601)
+						let response = try jsonDecoder.decode(Response.self, from: data)
 
-				do {
-					let jsonDecoder = JSONDecoder()
-					jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601)
-					let response = try jsonDecoder.decode(Response.self, from: data)
-
-					return completion(.success(response.news))
-				} catch {
-					print(error)
+						return completion(.success(response.news))
+					} catch {
+						print(error)
+						return completion(.failure(.invalidData))
+					}
+				} else {
 					return completion(.failure(.invalidData))
 				}
 			case .failure:

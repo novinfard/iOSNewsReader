@@ -62,10 +62,11 @@ class RemoteNewsReaderTest: XCTestCase {
 	func test_load_ErrorRaisedNon200HTTPResponse() {
 		let (sut, client) = self.makeSut()
 
-		let samples = [199, 200, 300, 400, 403, 404, 500]
+		let samples = [199, 300, 400, 403, 404, 500]
 		samples.enumerated().forEach { index, error in
 			self.expect(sut, toCompleteWith: .failure(.invalidData), when: {
-				client.complete(withStatusCode: error, at: index)
+				let data = self.makeItemsJson([])
+				client.complete(withStatusCode: error, data: data, at: index)
 			})
 		}
 	}
@@ -240,7 +241,7 @@ extension RemoteNewsReaderTest {
 		}
 
 		func complete(withStatusCode code: Int,
-					  data: Data = Data(),
+					  data: Data,
 					  at index: Int = 0) {
 			let response = HTTPURLResponse(
 				url: requestedUrls[index],
