@@ -16,6 +16,7 @@
 		CD11324B23EA29780026B935 /* NewsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324A23EA29780026B935 /* NewsReader.swift */; };
 		CD11324F23EB97130026B935 /* RemoteNewsReaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */; };
 		CD11325223EC08210026B935 /* RemoteNewsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11325123EC08210026B935 /* RemoteNewsReader.swift */; };
+		CD6614EC23F021EF00FEA9E6 /* Formatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		CD11324A23EA29780026B935 /* NewsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsReader.swift; sourceTree = "<group>"; };
 		CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReaderTest.swift; sourceTree = "<group>"; };
 		CD11325123EC08210026B935 /* RemoteNewsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReader.swift; sourceTree = "<group>"; };
+		CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 		CD11324D23EA2AF40026B935 /* Reader Feature */ = {
 			isa = PBXGroup;
 			children = (
+				CD6614EA23F021D000FEA9E6 /* Data Extensions */,
 				CD11324923EA273A0026B935 /* Models */,
 				CD11324A23EA29780026B935 /* NewsReader.swift */,
 			);
@@ -126,6 +129,14 @@
 				CD11325123EC08210026B935 /* RemoteNewsReader.swift */,
 			);
 			path = "Reader API";
+			sourceTree = "<group>";
+		};
+		CD6614EA23F021D000FEA9E6 /* Data Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */,
+			);
+			path = "Data Extensions";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +253,7 @@
 				CD11324823EA25430026B935 /* Source.swift in Sources */,
 				CD11324623EA25100026B935 /* Tag.swift in Sources */,
 				CD11325223EC08210026B935 /* RemoteNewsReader.swift in Sources */,
+				CD6614EC23F021EF00FEA9E6 /* Formatter+Extensions.swift in Sources */,
 				CD11324223EA23B30026B935 /* Response.swift in Sources */,
 				CD11324423EA24020026B935 /* NewsItem.swift in Sources */,
 			);

@@ -114,7 +114,7 @@ class RemoteNewsReaderTest: XCTestCase {
 			"author": news1.author,
 			"title": news1.title,
 			"description": news1.description,
-//			"publishedAt": "2002-10-12",
+//			"publishedAt": news1.publishedAt.iso8601,
 			"content": news1.content
 		]
 
@@ -152,7 +152,7 @@ class RemoteNewsReaderTest: XCTestCase {
 			"title": news2.title,
 			"description": news2.description,
 			"urlToImage": news2.urlToImage!.absoluteString,
-//			"publishedAt": "2002-10-12",
+//			"publishedAt": news2.publishedAt.iso8601,
 			"content": news2.content
 		]
 
@@ -164,9 +164,6 @@ class RemoteNewsReaderTest: XCTestCase {
 
 		print(responseJson)
 
-//		let json = try? JSONSerialization.data(withJSONObject: responseJson)
-//		let jsonString = String(data: json!, encoding: .ascii)
-
 		self.expect(sut, toCompleteWith: .success([news1, news2]), when: {
 			let jsonData = try! JSONSerialization.data(withJSONObject: responseJson)
 			client.complete(withStatusCode: 200, data: jsonData)
@@ -174,6 +171,21 @@ class RemoteNewsReaderTest: XCTestCase {
 
 	}
 
+
+	func skipped_test_jsonCodable_iso8601() {
+		let dates = [Date()] // ["Feb 9, 2020 at 12:55:24 PM"]
+
+		let encoder = JSONEncoder()
+		encoder.dateEncodingStrategy = .iso8601withFractionalSeconds
+		let data = try! encoder.encode(dates)
+
+		let decoder = JSONDecoder()
+		decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
+		let decodedDates = try! decoder.decode([Date].self, from: data) // ["Feb 9, 2020 at 12:55:24 PM"]
+
+		XCTAssertEqual(dates, decodedDates)
+		// fails with error message: [2020-02-09 12:55:24 +0000]") is not equal to ("[2020-02-09 12:55:24 +0000]"
+	}
 }
 
 // Mark: - Helpers
@@ -230,22 +242,4 @@ extension RemoteNewsReaderTest {
 			self.messages[index].completions(.success(data, response))
 		}
 	}
-}
-
-
-extension Formatter {
-    static let iso8601: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .iso8601)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
-        return formatter
-    }()
-}
-
-extension Date {
-	var iso8601: String {
-        return Formatter.iso8601.string(from: self)
-    }
 }

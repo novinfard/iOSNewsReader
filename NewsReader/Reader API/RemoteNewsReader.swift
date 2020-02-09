@@ -45,7 +45,10 @@ public final class RemoteNewsReader {
 			case let .success(data, _):
 
 				do {
-					let response = try JSONDecoder().decode(Response.self, from: data)
+					let jsonDecoder = JSONDecoder()
+					jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601)
+					let response = try jsonDecoder.decode(Response.self, from: data)
+
 					return completion(.success(response.news))
 				} catch {
 					print(error)
