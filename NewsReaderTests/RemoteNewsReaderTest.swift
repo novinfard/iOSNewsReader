@@ -84,11 +84,7 @@ class RemoteNewsReaderTest: XCTestCase {
 		let (sut, client) = self.makeSut()
 
 		self.expect(sut, toCompleteWith: .success([]), when: {
-			let emptyNewsJsonData = Data("""
-			{\"status\": \"ok\",
-			\"totalResults\": 0,
-			\"news\": [] }
-			""".utf8)
+			let emptyNewsJsonData = self.makeItemsJson([])
 			client.complete(withStatusCode: 200, data: emptyNewsJsonData)
 
 		})
