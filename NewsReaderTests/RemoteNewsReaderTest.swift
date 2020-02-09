@@ -96,36 +96,23 @@ class RemoteNewsReaderTest: XCTestCase {
 	func test_load_deliverItemsOnListResponse() {
 		let (sut, client) = self.makeSut()
 
-		let news1 = NewsItem(
+		let news1 = self.makeItem(
 			id: UUID(),
 			source: Source(id: nil, name: "a source"),
-			tags: nil,
 			author: "an author",
 			title: "a title",
 			description: "a description",
 			urlToImage: nil,
-//			publishedAt: Date(),
 			content: "a content"
 		)
 
-		let news1Json: [String : Any] = [
-			"id": news1.id.uuidString,
-			"source": ["name": news1.source.name],
-			"author": news1.author,
-			"title": news1.title,
-			"description": news1.description,
-//			"publishedAt": news1.publishedAt.iso8601,
-			"content": news1.content
-		]
-
-		let news2 = NewsItem(
+		let news2 = self.makeItem(
 			id: UUID(),
 			source: Source(id: UUID(), name: "another source"),
 //			tags: [
 //				Tag(id: UUID(), name: "a tag"),
 //				Tag(id: UUID(), name: "another tag")
 //			],
-			tags: nil,
 			author: "another author",
 			title: "another title",
 			description: "another description",
@@ -134,38 +121,10 @@ class RemoteNewsReaderTest: XCTestCase {
 			content: "another content"
 		)
 
-		let news2Json: [String : Any] = [
-			"id": news2.id.uuidString,
-			"source": ["id": news2.source.id?.uuidString,
-					   "name": news2.source.name],
-//			"tags": [
-//				[
-//					"id": news2.tags![0].id.uuidString,
-//					"name": news2.tags![0].name
-//				],
-//				[
-//					"id": news2.tags![1].id.uuidString,
-//					"name": news2.tags![1].name
-//				]
-//			],
-			"author": news2.author,
-			"title": news2.title,
-			"description": news2.description,
-			"urlToImage": news2.urlToImage!.absoluteString,
-//			"publishedAt": news2.publishedAt.iso8601,
-			"content": news2.content
-		]
+		let responseItems = [news1.model, news2.model]
 
-		let responseJson: [String : Any] = [
-			"status": "ok",
-			"totalResults": 2,
-			"news": [news1Json, news2Json]
-		]
-
-		print(responseJson)
-
-		self.expect(sut, toCompleteWith: .success([news1, news2]), when: {
-			let jsonData = try! JSONSerialization.data(withJSONObject: responseJson)
+		self.expect(sut, toCompleteWith: .success(responseItems), when: {
+			let jsonData = self.makeItemsJson([news1.json, news2.json])
 			client.complete(withStatusCode: 200, data: jsonData)
 		})
 
@@ -194,6 +153,56 @@ extension RemoteNewsReaderTest {
 		let client = HTTPClientSpy()
 		let sut = RemoteNewsReader(url: url, client: client)
 		return (sut, client)
+	}
+
+	private func makeItemsJson(_ items: [[String: Any]]) -> Data {
+		let responseJson: [String : Any] = [
+			"status": "ok",
+			"totalResults": items.count,
+			"news": items
+		]
+		return try! JSONSerialization.data(withJSONObject: responseJson)
+	}
+
+	private func makeItem(id: UUID,
+						  source: Source,
+						  author: String,
+						  title: String,
+						  description: String,
+						  urlToImage: URL?,
+						  content: String) -> (model: NewsItem, json: [String: Any]) {
+
+		let item = NewsItem(
+			id: id,
+			source: source,
+			tags: nil,
+			author: author,
+			title: title,
+			description: description,
+			urlToImage: urlToImage,
+			content: content
+		)
+
+		let json: [String: Any?] = [
+			"id": item.id.uuidString,
+			"source": [
+				"id": item.source.id?.uuidString,
+				"name": item.source.name
+			],
+			"author": item.author,
+			"title": item.title,
+			"description": item.description,
+			"urlToImage": item.urlToImage?.absoluteString,
+			"content": item.content
+		]
+
+		let jsonRemovedOptional: [String: Any] = json.reduce(into: [String: Any]()) { (acc, pair) in
+			if let value = pair.value {
+				acc[pair.key] = value
+			}
+		}
+
+		return (item, jsonRemovedOptional)
 	}
 
 	private func expect(_ sut: RemoteNewsReader,
