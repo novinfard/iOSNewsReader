@@ -8,8 +8,17 @@
 
 import Foundation
 
-struct Response {
+public struct Response: Decodable, Equatable {
 	let status: String
 	let totalResults: Int
 	let news: [NewsItem]
+
+	public init(status: String,
+				totalResults: Int,
+				news: [NewsItem]) {
+
+		self.status = status
+		self.totalResults = totalResults
+		self.news = news
+	}
 }

@@ -43,10 +43,13 @@ public final class RemoteNewsReader {
 		client.get(from: url, completion: { result in
 			switch result {
 			case let .success(data, _):
-				if let _ = try? JSONSerialization.jsonObject(with: data) {
-					return completion(.success([]))
-				} else {
-					completion(.failure(.invalidData))
+
+				do {
+					let response = try JSONDecoder().decode(Response.self, from: data)
+					return completion(.success(response.news))
+				} catch {
+					print(error)
+					return completion(.failure(.invalidData))
 				}
 			case .failure:
 				completion(.failure(.connectivity))

@@ -93,6 +93,87 @@ class RemoteNewsReaderTest: XCTestCase {
 		})
 	}
 
+	func test_load_deliverItemsOnListResponse() {
+		let (sut, client) = self.makeSut()
+
+		let news1 = NewsItem(
+			id: UUID(),
+			source: Source(id: nil, name: "a source"),
+			tags: nil,
+			author: "an author",
+			title: "a title",
+			description: "a description",
+			urlToImage: nil,
+//			publishedAt: Date(),
+			content: "a content"
+		)
+
+		let news1Json: [String : Any] = [
+			"id": news1.id.uuidString,
+			"source": ["name": news1.source.name],
+			"author": news1.author,
+			"title": news1.title,
+			"description": news1.description,
+//			"publishedAt": "2002-10-12",
+			"content": news1.content
+		]
+
+		let news2 = NewsItem(
+			id: UUID(),
+			source: Source(id: UUID(), name: "another source"),
+//			tags: [
+//				Tag(id: UUID(), name: "a tag"),
+//				Tag(id: UUID(), name: "another tag")
+//			],
+			tags: nil,
+			author: "another author",
+			title: "another title",
+			description: "another description",
+			urlToImage: URL(string: "https://a-url.com"),
+//			publishedAt: Date(),
+			content: "another content"
+		)
+
+		let news2Json: [String : Any] = [
+			"id": news2.id.uuidString,
+			"source": ["id": news2.source.id?.uuidString,
+					   "name": news2.source.name],
+//			"tags": [
+//				[
+//					"id": news2.tags![0].id.uuidString,
+//					"name": news2.tags![0].name
+//				],
+//				[
+//					"id": news2.tags![1].id.uuidString,
+//					"name": news2.tags![1].name
+//				]
+//			],
+			"author": news2.author,
+			"title": news2.title,
+			"description": news2.description,
+			"urlToImage": news2.urlToImage!.absoluteString,
+//			"publishedAt": "2002-10-12",
+			"content": news2.content
+		]
+
+		let responseJson: [String : Any] = [
+			"status": "ok",
+			"totalResults": 2,
+			"news": [news1Json, news2Json]
+		]
+
+		print(responseJson)
+
+//		let json = try? JSONSerialization.data(withJSONObject: responseJson)
+//		let jsonString = String(data: json!, encoding: .ascii)
+
+		self.expect(sut, toCompleteWith: .success([news1, news2]), when: {
+			let jsonData = try! JSONSerialization.data(withJSONObject: responseJson)
+			client.complete(withStatusCode: 200, data: jsonData)
+		})
+
+	}
+
 }
 
 // Mark: - Helpers
@@ -149,4 +230,22 @@ extension RemoteNewsReaderTest {
 			self.messages[index].completions(.success(data, response))
 		}
 	}
+}
+
+
+extension Formatter {
+    static let iso8601: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+        return formatter
+    }()
+}
+
+extension Date {
+	var iso8601: String {
+        return Formatter.iso8601.string(from: self)
+    }
 }
