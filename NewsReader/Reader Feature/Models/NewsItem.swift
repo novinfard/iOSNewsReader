@@ -40,5 +40,3 @@ public struct NewsItem: Equatable {
 		self.content = content
 	}
 }
-
-extension NewsItem: Decodable {}

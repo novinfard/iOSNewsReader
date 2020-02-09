@@ -17,5 +17,3 @@ public struct Tag: Equatable {
 		self.name = name
 	}
 }
-
-extension Tag: Decodable {}

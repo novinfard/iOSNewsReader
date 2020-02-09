@@ -17,5 +17,3 @@ public struct Source: Equatable {
 		self.name = name
 	}
 }
-
-extension Source: Decodable {}
