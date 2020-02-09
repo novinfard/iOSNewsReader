@@ -16,6 +16,7 @@
 		CD11324F23EB97130026B935 /* RemoteNewsReaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */; };
 		CD11325223EC08210026B935 /* RemoteNewsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11325123EC08210026B935 /* RemoteNewsReader.swift */; };
 		CD6614EC23F021EF00FEA9E6 /* Formatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */; };
+		CDD2008023F0A2DF009EB60F /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2007F23F0A2DF009EB60F /* HTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReaderTest.swift; sourceTree = "<group>"; };
 		CD11325123EC08210026B935 /* RemoteNewsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReader.swift; sourceTree = "<group>"; };
 		CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Extensions.swift"; sourceTree = "<group>"; };
+		CDD2007F23F0A2DF009EB60F /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				CD11325123EC08210026B935 /* RemoteNewsReader.swift */,
+				CDD2007F23F0A2DF009EB60F /* HTTPClient.swift */,
 			);
 			path = "Reader API";
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				CD11324B23EA29780026B935 /* NewsReader.swift in Sources */,
 				CD11324823EA25430026B935 /* Source.swift in Sources */,
 				CD11324623EA25100026B935 /* Tag.swift in Sources */,
+				CDD2008023F0A2DF009EB60F /* HTTPClient.swift in Sources */,
 				CD11325223EC08210026B935 /* RemoteNewsReader.swift in Sources */,
 				CD6614EC23F021EF00FEA9E6 /* Formatter+Extensions.swift in Sources */,
 				CD11324423EA24020026B935 /* NewsItem.swift in Sources */,
