@@ -146,10 +146,22 @@ class RemoteNewsReaderTest: XCTestCase {
 
 // Mark: - Helpers
 extension RemoteNewsReaderTest {
-	private func makeSut(url: URL = URL(string: "https://a-sample-url.com")!) -> (sut: RemoteNewsReader, client: HTTPClientSpy) {
+	private func makeSut(url: URL = URL(string: "https://a-sample-url.com")!,
+						 file: StaticString = #file,
+						 line: UInt = #line) -> (sut: RemoteNewsReader, client: HTTPClientSpy) {
 		let client = HTTPClientSpy()
 		let sut = RemoteNewsReader(url: url, client: client)
+
+		self.trackMemoryLeak(client, file: file, line: line)
+		self.trackMemoryLeak(sut, file: file, line: line)
+
 		return (sut, client)
+	}
+
+	private func trackMemoryLeak(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
+		addTeardownBlock { [weak instance] in
+			XCTAssertNil(instance, "Instance should be deallocated - potential retain cycle", file: file, line: line)
+		}
 	}
 
 	private func makeItemsJson(_ items: [[String: Any]]) -> Data {
