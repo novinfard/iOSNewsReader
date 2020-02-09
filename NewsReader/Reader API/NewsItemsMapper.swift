@@ -15,6 +15,10 @@ internal final class NewsItemsMapper {
 		let totalResults: Int
 		let news: [ApiNewsItem]
 
+		var items: [NewsItem] {
+			return self.news.map({$0.newsItem})
+		}
+
 		init(status: String,
 					totalResults: Int,
 					news: [ApiNewsItem]) {
@@ -79,9 +83,9 @@ internal final class NewsItemsMapper {
 
 	private static var OK_200: Int { return 200 }
 
-	internal class func map(_ data: Data, _ response: HTTPURLResponse) throws -> [NewsItem] {
+	internal static func map(_ data: Data, from response: HTTPURLResponse) -> RemoteNewsReader.Result {
 		guard response.statusCode == OK_200 else {
-			throw RemoteNewsReader.Error.invalidData
+			return .failure(.invalidData)
 		}
 
 		do {
@@ -89,10 +93,11 @@ internal final class NewsItemsMapper {
 			jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601)
 			let response = try jsonDecoder.decode(Response.self, from: data)
 
-			return response.news.map({$0.newsItem})
+			return .success(response.items)
 		} catch {
 			print(error)
-			throw RemoteNewsReader.Error.invalidData
+			return .failure(.invalidData)
 		}
 	}
+
 }

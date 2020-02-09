@@ -31,16 +31,10 @@ public final class RemoteNewsReader {
 		client.get(from: url, completion: { result in
 			switch result {
 			case let .success(data, response):
-				do {
-					let newsItems = try NewsItemsMapper.map(data, response)
-					return completion(.success(newsItems))
-				} catch {
-					return completion(.failure(.invalidData))
-				}
+				completion(NewsItemsMapper.map(data, from: response))
 			case .failure:
 				completion(.failure(.connectivity))
 			}
 		})
 	}
-
 }
