@@ -17,7 +17,7 @@ public final class RemoteNewsReader: NewsReader {
 		case invalidData
 	}
 
-	public typealias Result = NewsReaderResult<Error>
+	public typealias Result = NewsReaderResult
 
 	public init(url: URL, client: HTTPClient) {
 		self.url = url
@@ -31,7 +31,7 @@ public final class RemoteNewsReader: NewsReader {
 			case let .success(data, response):
 				completion(NewsItemsMapper.map(data, from: response))
 			case .failure:
-				completion(.failure(.connectivity))
+				completion(.failure(Error.connectivity))
 			}
 		})
 	}

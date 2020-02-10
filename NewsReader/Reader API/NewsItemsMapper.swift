@@ -85,7 +85,7 @@ internal final class NewsItemsMapper {
 
 	internal static func map(_ data: Data, from response: HTTPURLResponse) -> RemoteNewsReader.Result {
 		guard response.statusCode == OK_200 else {
-			return .failure(.invalidData)
+			return .failure(RemoteNewsReader.Error.invalidData)
 		}
 
 		do {
@@ -96,7 +96,7 @@ internal final class NewsItemsMapper {
 			return .success(response.items)
 		} catch {
 			print(error)
-			return .failure(.invalidData)
+			return .failure(RemoteNewsReader.Error.invalidData)
 		}
 	}
 
