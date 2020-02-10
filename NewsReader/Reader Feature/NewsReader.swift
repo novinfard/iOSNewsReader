@@ -13,8 +13,6 @@ public enum NewsReaderResult<Error: Swift.Error> {
 	case failure(Error)
 }
 
-extension NewsReaderResult: Equatable where Error: Equatable {}
-
 protocol NewsReader {
 	associatedtype Error: Swift.Error
 	func load(completion: @escaping (NewsReaderResult<Error>) -> Void)
