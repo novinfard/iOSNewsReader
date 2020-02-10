@@ -8,11 +8,14 @@
 
 import Foundation
 
-enum NewsReaderResult {
+public enum NewsReaderResult<Error: Swift.Error> {
 	case success([NewsItem])
-	case error(Error)
+	case failure(Error)
 }
 
+extension NewsReaderResult: Equatable where Error: Equatable {}
+
 protocol NewsReader {
-	func load(completion: @escaping (NewsReaderResult) -> Void)
+	associatedtype Error: Swift.Error
+	func load(completion: @escaping (NewsReaderResult<Error>) -> Void)
 }

@@ -17,10 +17,7 @@ public final class RemoteNewsReader {
 		case invalidData
 	}
 
-	public enum Result: Equatable {
-		case success([NewsItem])
-		case failure(Error)
-	}
+	public typealias Result = NewsReaderResult<Error>
 
 	public init(url: URL, client: HTTPClient) {
 		self.url = url
