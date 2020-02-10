@@ -13,6 +13,6 @@ public enum NewsReaderResult {
 	case failure(Error)
 }
 
-protocol NewsReader {
+public protocol NewsReader {
 	func load(completion: @escaping (NewsReaderResult) -> Void)
 }
