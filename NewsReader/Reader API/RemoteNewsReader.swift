@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class RemoteNewsReader {
+public final class RemoteNewsReader: NewsReader {
 	private let url: URL
 	private let client: HTTPClient
 
