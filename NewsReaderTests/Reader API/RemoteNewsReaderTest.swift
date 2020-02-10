@@ -53,7 +53,7 @@ class RemoteNewsReaderTest: XCTestCase {
 	func test_load_connectivityErrorRaised() {
 		let (sut, client) = self.makeSut()
 
-		self.expect(sut, toCompleteWith: .failure(RemoteNewsReader.Error.connectivity), when: {
+		self.expect(sut, toCompleteWith: failure(.connectivity), when: {
 			let error = NSError(domain: "Test", code: 0)
 			client.complete(with: error)
 		})
@@ -64,7 +64,7 @@ class RemoteNewsReaderTest: XCTestCase {
 
 		let samples = [199, 300, 400, 403, 404, 500]
 		samples.enumerated().forEach { index, error in
-			self.expect(sut, toCompleteWith: .failure(RemoteNewsReader.Error.invalidData), when: {
+			self.expect(sut, toCompleteWith: failure(.invalidData), when: {
 				let data = self.makeItemsJson([])
 				client.complete(withStatusCode: error, data: data, at: index)
 			})
@@ -74,7 +74,7 @@ class RemoteNewsReaderTest: XCTestCase {
 	func test_load_invalidJsonErrorRaise() {
 		let (sut, client) = self.makeSut()
 
-		self.expect(sut, toCompleteWith: .failure(RemoteNewsReader.Error.invalidData), when: {
+		self.expect(sut, toCompleteWith: failure(.invalidData), when: {
 			let invalidJsonData = Data("invalid json".utf8)
 			client.complete(withStatusCode: 200, data: invalidJsonData)
 		})
@@ -170,6 +170,10 @@ extension RemoteNewsReaderTest {
 		self.trackMemoryLeak(sut, file: file, line: line)
 
 		return (sut, client)
+	}
+
+	private func failure(_ error: RemoteNewsReader.Error) -> RemoteNewsReader.Result {
+		return .failure(error)
 	}
 
 	private func trackMemoryLeak(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
