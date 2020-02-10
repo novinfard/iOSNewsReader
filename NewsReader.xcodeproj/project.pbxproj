@@ -16,6 +16,7 @@
 		CD11324F23EB97130026B935 /* RemoteNewsReaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */; };
 		CD11325223EC08210026B935 /* RemoteNewsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11325123EC08210026B935 /* RemoteNewsReader.swift */; };
 		CD6614EC23F021EF00FEA9E6 /* Formatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */; };
+		CDACCF0523F1FC7500AC2D4A /* URLSessionHttpClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDACCF0423F1FC7500AC2D4A /* URLSessionHttpClientTests.swift */; };
 		CDD2008023F0A2DF009EB60F /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD2007F23F0A2DF009EB60F /* HTTPClient.swift */; };
 		CDEA12D123F0A39200A019E4 /* NewsItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEA12D023F0A39200A019E4 /* NewsItemsMapper.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReaderTest.swift; sourceTree = "<group>"; };
 		CD11325123EC08210026B935 /* RemoteNewsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReader.swift; sourceTree = "<group>"; };
 		CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Extensions.swift"; sourceTree = "<group>"; };
+		CDACCF0423F1FC7500AC2D4A /* URLSessionHttpClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHttpClientTests.swift; sourceTree = "<group>"; };
 		CDD2007F23F0A2DF009EB60F /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		CDEA12D023F0A39200A019E4 /* NewsItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemsMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */,
+				CDACCF0423F1FC7500AC2D4A /* URLSessionHttpClientTests.swift */,
 			);
 			path = "Reader API";
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD11324F23EB97130026B935 /* RemoteNewsReaderTest.swift in Sources */,
+				CDACCF0523F1FC7500AC2D4A /* URLSessionHttpClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
