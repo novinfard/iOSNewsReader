@@ -176,12 +176,6 @@ extension RemoteNewsReaderTest {
 		return .failure(error)
 	}
 
-	private func trackMemoryLeak(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
-		addTeardownBlock { [weak instance] in
-			XCTAssertNil(instance, "Instance should be deallocated - potential retain cycle", file: file, line: line)
-		}
-	}
-
 	private func makeItemsJson(_ items: [[String: Any]]) -> Data {
 		let responseJson: [String : Any] = [
 			"status": "ok",
