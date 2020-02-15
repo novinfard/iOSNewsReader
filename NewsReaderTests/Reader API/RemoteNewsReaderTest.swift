@@ -211,7 +211,7 @@ extension RemoteNewsReaderTest {
 		let json: [String: Any?] = [
 			"id": item.id,
 			"source": [
-				"id": item.source.id,
+				"id": item.source.id as Any,
 				"name": item.source.name
 			],
 			"author": item.author,
