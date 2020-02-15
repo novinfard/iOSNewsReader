@@ -94,7 +94,7 @@ class RemoteNewsReaderTest: XCTestCase {
 		let (sut, client) = self.makeSut()
 
 		let news1 = self.makeItem(
-			id: UUID(),
+			id: self.anyId(),
 			source: Source(id: nil, name: "a source"),
 			author: "an author",
 			title: "a title",
@@ -104,8 +104,8 @@ class RemoteNewsReaderTest: XCTestCase {
 		)
 
 		let news2 = self.makeItem(
-			id: UUID(),
-			source: Source(id: UUID(), name: "another source"),
+			id: anyId(),
+			source: Source(id: anyId(), name: "another source"),
 //			tags: [
 //				Tag(id: UUID(), name: "a tag"),
 //				Tag(id: UUID(), name: "another tag")
@@ -185,7 +185,11 @@ extension RemoteNewsReaderTest {
 		return try! JSONSerialization.data(withJSONObject: responseJson)
 	}
 
-	private func makeItem(id: UUID,
+	private func anyId() -> Int {
+		return Int.random(in: 1 ... 1_000_000)
+	}
+
+	private func makeItem(id: Int,
 						  source: Source,
 						  author: String,
 						  title: String,
@@ -205,9 +209,9 @@ extension RemoteNewsReaderTest {
 		)
 
 		let json: [String: Any?] = [
-			"id": item.id.uuidString,
+			"id": item.id,
 			"source": [
-				"id": item.source.id?.uuidString,
+				"id": item.source.id,
 				"name": item.source.name
 			],
 			"author": item.author,

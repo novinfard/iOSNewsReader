@@ -30,7 +30,7 @@ internal final class NewsItemsMapper {
 	}
 
 	private struct ApiNewsItem: Decodable, Equatable {
-		let id: UUID
+		let id: Int
 		let source: ApiSource
 		let tags: [ApiTag]?
 		let author: String
@@ -54,10 +54,10 @@ internal final class NewsItemsMapper {
 	}
 
 	private struct ApiSource: Decodable, Equatable {
-		let id: UUID?
+		let id: Int?
 		let name: String
 
-		init(id: UUID?, name: String) {
+		init(id: Int?, name: String) {
 			self.id = id
 			self.name = name
 		}
@@ -68,10 +68,10 @@ internal final class NewsItemsMapper {
 	}
 
 	private struct ApiTag: Decodable, Equatable {
-		let id: UUID
+		let id: Int
 		let name: String
 
-		init(id: UUID, name: String) {
+		init(id: Int, name: String) {
 			self.id = id
 			self.name = name
 		}

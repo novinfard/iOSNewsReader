@@ -9,7 +9,7 @@
 import Foundation
 
 public struct NewsItem: Equatable {
-	public let id: UUID
+	public let id: Int
 	public let source: Source
 	public let tags: [Tag]?
 	public let author: String
@@ -19,7 +19,7 @@ public struct NewsItem: Equatable {
 //	public let publishedAt: Date
 	public let content: String
 
-	public init(id: UUID,
+	public init(id: Int,
 				source: Source,
 				tags: [Tag]?,
 				author: String,
