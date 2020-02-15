@@ -1,5 +1,7 @@
 # iOS News Reader
 
+[![Build Status](https://travis-ci.org/novinfard/iOSNewsReader.svg?branch=master)](https://travis-ci.org/novinfard/iOSNewsReader)
+
 ## BDD Specs
 
 ### Story: User requests to see the news feed
