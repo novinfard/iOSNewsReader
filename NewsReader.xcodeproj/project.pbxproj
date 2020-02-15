@@ -16,6 +16,8 @@
 		CD11324F23EB97130026B935 /* RemoteNewsReaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */; };
 		CD11325223EC08210026B935 /* RemoteNewsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11325123EC08210026B935 /* RemoteNewsReader.swift */; };
 		CD6614EC23F021EF00FEA9E6 /* Formatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */; };
+		CD838B1E23F770E500413346 /* NewsReaderAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD838B1D23F770E500413346 /* NewsReaderAPIEndToEndTests.swift */; };
+		CD838B2023F770E500413346 /* NewsReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD11322723E8DA7B0026B935 /* NewsReader.framework */; };
 		CDACCF0523F1FC7500AC2D4A /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDACCF0423F1FC7500AC2D4A /* URLSessionHTTPClientTests.swift */; };
 		CDD1E7B823F3688700715E49 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD1E7B723F3688700715E49 /* XCTestCase+MemoryLeakTracking.swift */; };
 		CDD1E7BA23F4ADBB00715E49 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD1E7B923F4ADBB00715E49 /* URLSessionHTTPClient.swift */; };
@@ -25,6 +27,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		CD11323223E8DA7B0026B935 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD11321E23E8DA7B0026B935 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD11322623E8DA7B0026B935;
+			remoteInfo = NewsReader;
+		};
+		CD838B2123F770E500413346 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CD11321E23E8DA7B0026B935 /* Project object */;
 			proxyType = 1;
@@ -46,6 +55,9 @@
 		CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReaderTest.swift; sourceTree = "<group>"; };
 		CD11325123EC08210026B935 /* RemoteNewsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReader.swift; sourceTree = "<group>"; };
 		CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Extensions.swift"; sourceTree = "<group>"; };
+		CD838B1B23F770E500413346 /* NewsReaderAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsReaderAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD838B1D23F770E500413346 /* NewsReaderAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsReaderAPIEndToEndTests.swift; sourceTree = "<group>"; };
+		CD838B1F23F770E500413346 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDACCF0423F1FC7500AC2D4A /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		CDD1E7B723F3688700715E49 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		CDD1E7B923F4ADBB00715E49 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
@@ -69,6 +81,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD838B1823F770E500413346 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD838B2023F770E500413346 /* NewsReader.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,6 +97,7 @@
 			children = (
 				CD11322923E8DA7B0026B935 /* NewsReader */,
 				CD11323423E8DA7B0026B935 /* NewsReaderTests */,
+				CD838B1C23F770E500413346 /* NewsReaderAPIEndToEndTests */,
 				CD11322823E8DA7B0026B935 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,6 +107,7 @@
 			children = (
 				CD11322723E8DA7B0026B935 /* NewsReader.framework */,
 				CD11323023E8DA7B0026B935 /* NewsReaderTests.xctest */,
+				CD838B1B23F770E500413346 /* NewsReaderAPIEndToEndTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -147,6 +169,15 @@
 				CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */,
 			);
 			path = "Data Extensions";
+			sourceTree = "<group>";
+		};
+		CD838B1C23F770E500413346 /* NewsReaderAPIEndToEndTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD838B1D23F770E500413346 /* NewsReaderAPIEndToEndTests.swift */,
+				CD838B1F23F770E500413346 /* Info.plist */,
+			);
+			path = NewsReaderAPIEndToEndTests;
 			sourceTree = "<group>";
 		};
 		CDACCF0123F0AFEB00AC2D4A /* Reader API */ = {
@@ -217,6 +248,24 @@
 			productReference = CD11323023E8DA7B0026B935 /* NewsReaderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		CD838B1A23F770E500413346 /* NewsReaderAPIEndToEndTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD838B2523F770E500413346 /* Build configuration list for PBXNativeTarget "NewsReaderAPIEndToEndTests" */;
+			buildPhases = (
+				CD838B1723F770E500413346 /* Sources */,
+				CD838B1823F770E500413346 /* Frameworks */,
+				CD838B1923F770E500413346 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD838B2223F770E500413346 /* PBXTargetDependency */,
+			);
+			name = NewsReaderAPIEndToEndTests;
+			productName = NewsReaderAPIEndToEndTests;
+			productReference = CD838B1B23F770E500413346 /* NewsReaderAPIEndToEndTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -232,6 +281,9 @@
 						LastSwiftMigration = 1130;
 					};
 					CD11322F23E8DA7B0026B935 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					CD838B1A23F770E500413346 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
@@ -251,6 +303,7 @@
 			targets = (
 				CD11322623E8DA7B0026B935 /* NewsReader */,
 				CD11322F23E8DA7B0026B935 /* NewsReaderTests */,
+				CD838B1A23F770E500413346 /* NewsReaderAPIEndToEndTests */,
 			);
 		};
 /* End PBXProject section */
@@ -264,6 +317,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CD11322E23E8DA7B0026B935 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD838B1923F770E500413346 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,6 +359,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD838B1723F770E500413346 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD838B1E23F770E500413346 /* NewsReaderAPIEndToEndTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -306,6 +374,11 @@
 			isa = PBXTargetDependency;
 			target = CD11322623E8DA7B0026B935 /* NewsReader */;
 			targetProxy = CD11323223E8DA7B0026B935 /* PBXContainerItemProxy */;
+		};
+		CD838B2223F770E500413346 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD11322623E8DA7B0026B935 /* NewsReader */;
+			targetProxy = CD838B2123F770E500413346 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -447,6 +520,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-fprofile-instr-generate";
 				PRODUCT_BUNDLE_IDENTIFIER = com.novinfard.NewsReader;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -473,6 +547,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-fprofile-instr-generate";
 				PRODUCT_BUNDLE_IDENTIFIER = com.novinfard.NewsReader;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -518,6 +593,44 @@
 			};
 			name = Release;
 		};
+		CD838B2323F770E500413346 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = VQ3DDEUQ7K;
+				INFOPLIST_FILE = NewsReaderAPIEndToEndTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.novinfard.NewsReaderAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CD838B2423F770E500413346 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = VQ3DDEUQ7K;
+				INFOPLIST_FILE = NewsReaderAPIEndToEndTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.novinfard.NewsReaderAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -544,6 +657,15 @@
 			buildConfigurations = (
 				CD11323F23E8DA7B0026B935 /* Debug */,
 				CD11324023E8DA7B0026B935 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD838B2523F770E500413346 /* Build configuration list for PBXNativeTarget "NewsReaderAPIEndToEndTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD838B2323F770E500413346 /* Debug */,
+				CD838B2423F770E500413346 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
