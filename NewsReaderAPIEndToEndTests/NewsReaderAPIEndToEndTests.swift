@@ -11,19 +11,7 @@ import NewsReader
 
 class NewsReaderAPIEndToEndTests: XCTestCase {
 	func test_endToEndServerGetReaderResult_byTestAccountData() {
-		let testServerUrl = URL(string: "https://raw.githubusercontent.com/novinfard/iOSNewsReader/master/news.json")!
-		let client = URLSessionHTTPClient()
-		let loader = RemoteNewsReader(url: testServerUrl, client: client)
-
-		let exp = expectation(description: "Wait for load completion")
-
-		var receivedResult: NewsReaderResult?
-		loader.load { result in
-			receivedResult = result
-			exp.fulfill()
-		}
-
-		wait(for: [exp], timeout: 10)
+		let receivedResult = self.getNewsReaderResult()
 
 		switch receivedResult {
 		case .success(let items):
@@ -40,6 +28,23 @@ class NewsReaderAPIEndToEndTests: XCTestCase {
 
 // MARK: - Helpers
 extension NewsReaderAPIEndToEndTests {
+	private func getNewsReaderResult() -> NewsReaderResult? {
+		let testServerUrl = URL(string: "https://raw.githubusercontent.com/novinfard/iOSNewsReader/master/news.json")!
+		let client = URLSessionHTTPClient()
+		let loader = RemoteNewsReader(url: testServerUrl, client: client)
+
+		let exp = expectation(description: "Wait for load completion")
+
+		var receivedResult: NewsReaderResult?
+		loader.load { result in
+			receivedResult = result
+			exp.fulfill()
+		}
+
+		wait(for: [exp], timeout: 10)
+		return receivedResult
+	}
+
 	private func expectedItem(at index: Int) -> NewsItem {
 		return [
 			NewsItem(
