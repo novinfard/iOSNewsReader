@@ -3,7 +3,7 @@
     "totalResults": 10,
     "news": [
         {
-            "id": 11,
+            "id": "11",
             "source": {
                 "id": null,
                 "name": "Seekingalpha.com"
@@ -16,7 +16,7 @@
             "content": "By Ed Moya\r\nThe primary driver for financial markets remains the coronavirus and its potential impact on the global economy. It is still too early to forecast the peak of the virus or even the impact it will have on the Chinese economy. The virus was spreadin… [+12235 chars]"
         },
         {
-            "id": 14,
+            "id": "14",
             "source": {
                 "id": null,
                 "name": "Newsbtc.com"
@@ -29,7 +29,7 @@
             "content": "Bitcoin (BTC) is currently in the process of revisiting its recently established 2020 highs of $9,550, with its ongoing upsurge coming close on the heels of yesterday evenings selloff that led the crypto to dip as low as $9,200.\r\nBulls ability to post a stron… [+2647 chars]"
         },
         {
-            "id": 23,
+            "id": "23",
             "source": {
                 "id": null,
                 "name": "Cointelegraph.com"
@@ -37,11 +37,11 @@
             "tags": [
                 {
                     "name": "bitcoin",
-                    "id": 4
+                    "id": "4"
                 },
                 {
                     "name": "crypto",
-                    "id": 34
+                    "id": "34"
                 }
             ],
             "author": "Cointelegraph By Rakesh Upadhyay",
@@ -52,7 +52,7 @@
             "content": "Several major altcoins have outperformed Bitcoin in January 2020. However, with the reward halving just over three months away, Bitcoin might play catch up. During the previous two halvings, Bitcoin rallied just before and after the event. Weiss Ratings belie… [+7184 chars]"
         },
         {
-            "id": 87,
+            "id": "87",
             "source": {
                 "id": null,
                 "name": "Androidauthority.com"
@@ -65,9 +65,9 @@
             "content": "The potential of a Raspberry Pi is only limited by the know-how of the owner. From drones to gaming stations, the possibilities are almost endless.\r\nThe Raspberry Pi Mastery Bundle can do just that, and the best part is that it’s 96% offtoday. This eight-part… [+955 chars]"
         },
         {
-            "id": 101,
+            "id": "101",
             "source": {
-                "id": 8,
+                "id": "8",
                 "name": "Letstalkbitcoin.com"
             },
             "author": "adam@letstalkbitcoin.com, adam@letstalkbitcoin.com",
@@ -78,9 +78,9 @@
             "content": "Click to download audio version\r\nAndreas answers the burning question Has he tried haggis? Just kidding He shares his thoughts on the recently released Libra whitepaper, as part of a permissioned blockchain project spearheaded by Facebook.\r\nThis episode of Le… [+1519 chars]"
         },
         {
-            "id": 130,
+            "id": "130",
             "source": {
-                "id": 8,
+                "id": "8",
                 "name": "Letstalkbitcoin.com"
             },
             "author": "adam@letstalkbitcoin.com (The LTB Network), The LTB Network",
@@ -91,9 +91,9 @@
             "content": "Click to download audio version\r\nAndreas answers the burning question Has he tried haggis? Just kidding He shares his thoughts on the recently released Libra whitepaper, as part of a permissioned blockchain project spearheaded by Facebook.\r\nThis episode of Le… [+1519 chars]"
         },
         {
-            "id": 141,
+            "id": "141",
             "source": {
-                "id": 8,
+                "id": "8",
                 "name": "Letstalkbitcoin.com"
             },
             "author": "adam@letstalkbitcoin.com (The LTB Network), The LTB Network",
@@ -104,7 +104,7 @@
             "content": "Click to download audio version\r\n\"Whats noteworthy about this point is that, upon this particular halving, Bitcoin inflating at a roughly 1.8 percent rate annually will nominally and by then, quite possibly in real terms be inflating at a rate lower than both… [+1524 chars]"
         },
         {
-            "id": 155,
+            "id": "155",
             "source": {
                 "id": null,
                 "name": "Coindesk.com"
@@ -112,7 +112,7 @@
             "tags": [
                 {
                     "name": "fintech",
-                    "id": 11
+                    "id": "11"
                 }
             ],
             "author": "Adam B. Levine",
@@ -123,9 +123,9 @@
             "content": "In Libre Not Libra: Facebooks Blockchain Project, Andreas answers the burning question Has he tried haggis? Just kidding He shares his thoughts on the recently released Libra whitepaper, as part of a permissioned blockchain project spearheaded by Facebook. \r\n… [+1998 chars]"
         },
         {
-            "id": 173,
+            "id": "173",
             "source": {
-                "id": 97,
+                "id": "97",
                 "name": "Innovationexcellence.com"
             },
             "author": "Greg Satell",
@@ -136,7 +136,7 @@
             "content": "by Greg Satell\r\nThere is a line of thinking that says that the world is built on ideas. It was an idea that launched the American Revolution and created a nation. It was an idea that led Albert Einstein to pursue relativity, Linus Pauling to invent a vaccine … [+7391 chars]"
         },
         {
-            "id": 190,
+            "id": "190",
             "source": {
                 "id": null,
                 "name": "Bitcoinist.com"
@@ -144,11 +144,11 @@
             "tags": [
                 {
                     "name": "fintech",
-                    "id": 11
+                    "id": "11"
                 },
                 {
                     "name": "crypto",
-                    "id": 34
+                    "id": "34"
                 }
             ],
             "author": "Christine Vasileva",
