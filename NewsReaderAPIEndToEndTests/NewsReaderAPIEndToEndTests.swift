@@ -30,7 +30,7 @@ class NewsReaderAPIEndToEndTests: XCTestCase {
 extension NewsReaderAPIEndToEndTests {
 	private func getNewsReaderResult(file: StaticString = #file, line: UInt = #line) -> NewsReaderResult? {
 		let testServerUrl = URL(string: "https://raw.githubusercontent.com/novinfard/iOSNewsReader/master/news.json")!
-		let client = URLSessionHTTPClient()
+		let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
 		let loader = RemoteNewsReader(url: testServerUrl, client: client)
 
 		trackMemoryLeak(client, file: file, line: line)
