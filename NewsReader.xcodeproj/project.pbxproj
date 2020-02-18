@@ -13,7 +13,7 @@
 		CD11324623EA25100026B935 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324523EA25100026B935 /* Tag.swift */; };
 		CD11324823EA25430026B935 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324723EA25430026B935 /* Source.swift */; };
 		CD11324B23EA29780026B935 /* NewsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324A23EA29780026B935 /* NewsReader.swift */; };
-		CD11324F23EB97130026B935 /* RemoteNewsReaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */; };
+		CD11324F23EB97130026B935 /* LoadNewsFromRemoteUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11324E23EB97130026B935 /* LoadNewsFromRemoteUseCaseTest.swift */; };
 		CD11325223EC08210026B935 /* RemoteNewsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11325123EC08210026B935 /* RemoteNewsReader.swift */; };
 		CD50318023F841130038B028 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD1E7B723F3688700715E49 /* XCTestCase+MemoryLeakTracking.swift */; };
 		CD6614EC23F021EF00FEA9E6 /* Formatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */; };
@@ -53,7 +53,7 @@
 		CD11324523EA25100026B935 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		CD11324723EA25430026B935 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		CD11324A23EA29780026B935 /* NewsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsReader.swift; sourceTree = "<group>"; };
-		CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReaderTest.swift; sourceTree = "<group>"; };
+		CD11324E23EB97130026B935 /* LoadNewsFromRemoteUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadNewsFromRemoteUseCaseTest.swift; sourceTree = "<group>"; };
 		CD11325123EC08210026B935 /* RemoteNewsReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNewsReader.swift; sourceTree = "<group>"; };
 		CD6614EB23F021EF00FEA9E6 /* Formatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Extensions.swift"; sourceTree = "<group>"; };
 		CD838B1B23F770E500413346 /* NewsReaderAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsReaderAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				CDD1E7B623F3687A00715E49 /* Helpers */,
-				CD11324E23EB97130026B935 /* RemoteNewsReaderTest.swift */,
+				CD11324E23EB97130026B935 /* LoadNewsFromRemoteUseCaseTest.swift */,
 				CDACCF0423F1FC7500AC2D4A /* URLSessionHTTPClientTests.swift */,
 			);
 			path = "Reader API";
@@ -354,7 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD11324F23EB97130026B935 /* RemoteNewsReaderTest.swift in Sources */,
+				CD11324F23EB97130026B935 /* LoadNewsFromRemoteUseCaseTest.swift in Sources */,
 				CDACCF0523F1FC7500AC2D4A /* URLSessionHTTPClientTests.swift in Sources */,
 				CDD1E7B823F3688700715E49 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);

@@ -9,7 +9,7 @@
 import XCTest
 import NewsReader
 
-class RemoteNewsReaderTest: XCTestCase {
+class LoadNewsFromRemoteUseCaseTest: XCTestCase {
 
 	func test_init_doesNotRequestDataFromUrl() {
 		// Given
@@ -159,7 +159,7 @@ class RemoteNewsReaderTest: XCTestCase {
 }
 
 // Mark: - Helpers
-extension RemoteNewsReaderTest {
+extension LoadNewsFromRemoteUseCaseTest {
 	private func makeSut(url: URL = URL(string: "https://a-sample-url.com")!,
 						 file: StaticString = #file,
 						 line: UInt = #line) -> (sut: RemoteNewsReader, client: HTTPClientSpy) {
