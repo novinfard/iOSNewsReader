@@ -46,9 +46,13 @@ class CacheNewsUseCaseTests: XCTestCase {
 
 	// MARK: - Helpers
 
-	private func makeSut() -> (sut: LocalNewsReader, store: NewsStore) {
+	private func makeSut(file: StaticString = #file, line: UInt = #line) -> (sut: LocalNewsReader, store: NewsStore) {
 		let store = NewsStore()
 		let sut = LocalNewsReader(store: store)
+
+		trackMemoryLeak(store, file: file, line: line)
+		trackMemoryLeak(sut, file: file, line: line)
+
 		return (sut, store)
 	}
 
