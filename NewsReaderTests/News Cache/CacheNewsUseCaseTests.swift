@@ -11,14 +11,16 @@ import NewsReader
 
 class LocalNewsReader {
 	private let store: NewsStore
-	init(store: NewsStore) {
+	private let currentDate: () -> Date
+	init(store: NewsStore, currentDate: @escaping () -> Date) {
 		self.store = store
+		self.currentDate = currentDate
 	}
 
 	func save(_ items: [NewsItem]) {
 		store.deleteCachedNews() { [unowned self] error in
 			if error == nil {
-				self.store.insert(items)
+				self.store.insert(items, timestamp: self.currentDate())
 			}
 		}
 	}
@@ -28,6 +30,7 @@ class NewsStore {
 	typealias DeletionCompletion = (Error?) -> Void
 	var deleteCachedNewsCallCount = 0
 	var insertCallCount = 0
+	var insertions = [(items: [NewsItem], timestamp: Date)]()
 
 	private var deletionCompletions = [DeletionCompletion]()
 	func deleteCachedNews(completion: @escaping DeletionCompletion) {
@@ -43,8 +46,9 @@ class NewsStore {
 		deletionCompletions[index](nil)
 	}
 
-	func insert(_ items: [NewsItem]) {
+	func insert(_ items: [NewsItem], timestamp: Date) {
 		insertCallCount += 1
+		insertions.append((items: items, timestamp: timestamp))
 	}
 }
 
@@ -85,11 +89,26 @@ class CacheNewsUseCaseTests: XCTestCase {
 		XCTAssertEqual(store.insertCallCount, 1)
 	}
 
+	func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfullDeletion() {
+		let timestamp = Date()
+		let items = [uniqueItem(), uniqueItem()]
+		let (sut, store) = makeSut(currentDate: { timestamp } )
+
+		sut.save(items)
+		store.completeDeletionSuccessfully()
+
+		XCTAssertEqual(store.insertions.count, 1)
+		XCTAssertEqual(store.insertions.first?.items, items)
+		XCTAssertEqual(store.insertions.first?.timestamp, timestamp)
+	}
+
 	// MARK: - Helpers
 
-	private func makeSut(file: StaticString = #file, line: UInt = #line) -> (sut: LocalNewsReader, store: NewsStore) {
+	private func makeSut(currentDate: @escaping () -> Date = Date.init,
+						 file: StaticString = #file,
+						 line: UInt = #line) -> (sut: LocalNewsReader, store: NewsStore) {
 		let store = NewsStore()
-		let sut = LocalNewsReader(store: store)
+		let sut = LocalNewsReader(store: store, currentDate: currentDate)
 
 		trackMemoryLeak(store, file: file, line: line)
 		trackMemoryLeak(sut, file: file, line: line)
