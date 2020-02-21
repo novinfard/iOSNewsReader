@@ -17,8 +17,9 @@ class LocalNewsReader {
 		self.currentDate = currentDate
 	}
 
-	func save(_ items: [NewsItem]) {
+	func save(_ items: [NewsItem], completion: @escaping (Error?) -> Void) {
 		store.deleteCachedNews() { [unowned self] error in
+			completion(error)
 			if error == nil {
 				self.store.insert(items, timestamp: self.currentDate())
 			}
@@ -66,7 +67,7 @@ class CacheNewsUseCaseTests: XCTestCase {
 	func test_save_requestsCacheDeletion() {
 		let (sut, store) = makeSut()
 		let items = [uniqueItem(), uniqueItem()]
-		sut.save(items)
+		sut.save(items) { _ in }
 
 		XCTAssertEqual(store.receivedMessages, [.deleteCachedNews])
 	}
@@ -76,7 +77,7 @@ class CacheNewsUseCaseTests: XCTestCase {
 		let items = [uniqueItem(), uniqueItem()]
 		let deletionError = anyNSError()
 
-		sut.save(items)
+		sut.save(items)  { _ in }
 		store.completeDeletion(with: deletionError)
 
 		XCTAssertEqual(store.receivedMessages, [.deleteCachedNews])
@@ -87,10 +88,27 @@ class CacheNewsUseCaseTests: XCTestCase {
 		let items = [uniqueItem(), uniqueItem()]
 		let (sut, store) = makeSut(currentDate: { timestamp } )
 
-		sut.save(items)
+		sut.save(items)  { _ in }
 		store.completeDeletionSuccessfully()
 
 		XCTAssertEqual(store.receivedMessages, [.deleteCachedNews, .insert(items, timestamp)])
+	}
+
+	func test_save_failOnDeletionError() {
+		let (sut, store) = makeSut()
+		let items = [uniqueItem(), uniqueItem()]
+		let deletionError = anyNSError()
+
+		let exp = expectation(description: "Wait for save completion")
+		var receivedError: Error?
+		sut.save(items) { error in
+			receivedError = error
+			exp.fulfill()
+		}
+		store.completeDeletion(with: deletionError)
+		wait(for: [exp], timeout: 1)
+
+		XCTAssertEqual(receivedError as NSError?, deletionError)
 	}
 
 	// MARK: - Helpers
