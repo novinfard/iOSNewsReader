@@ -28,45 +28,12 @@ class LocalNewsReader {
 	}
 }
 
-class NewsStore {
+protocol NewsStore {
 	typealias DeletionCompletion = (Error?) -> Void
 	typealias InsertionCompletion = (Error?) -> Void
 
-	enum ReceivedMessage: Equatable {
-		case deleteCachedNews
-		case insert([NewsItem], Date)
-	}
-
-	private(set) var receivedMessages = [ReceivedMessage]()
-
-	private var deletionCompletions = [DeletionCompletion]()
-	private var insertionCompletions = [InsertionCompletion]()
-
-	func deleteCachedNews(completion: @escaping DeletionCompletion) {
-		deletionCompletions.append(completion)
-		receivedMessages.append(.deleteCachedNews)
-	}
-
-	func completeDeletion(with error: Error, at index: Int = 0) {
-		deletionCompletions[index](error)
-	}
-
-	func completeDeletionSuccessfully(at index: Int = 0) {
-		deletionCompletions[index](nil)
-	}
-
-	func insert(_ items: [NewsItem], timestamp: Date, completion: @escaping InsertionCompletion) {
-		insertionCompletions.append(completion)
-		receivedMessages.append(.insert(items, timestamp))
-	}
-
-	func completeInsertion(with error: Error, at index: Int = 0) {
-		insertionCompletions[index](error)
-	}
-
-	func completeInsertionSuccessfully(at index: Int = 0) {
-		insertionCompletions[index](nil)
-	}
+	func deleteCachedNews(completion: @escaping DeletionCompletion)
+	func insert(_ items: [NewsItem], timestamp: Date, completion: @escaping InsertionCompletion)
 }
 
 class CacheNewsUseCaseTests: XCTestCase {
@@ -141,8 +108,8 @@ class CacheNewsUseCaseTests: XCTestCase {
 
 	private func makeSut(currentDate: @escaping () -> Date = Date.init,
 						 file: StaticString = #file,
-						 line: UInt = #line) -> (sut: LocalNewsReader, store: NewsStore) {
-		let store = NewsStore()
+						 line: UInt = #line) -> (sut: LocalNewsReader, store: NewsStoreSpy) {
+		let store = NewsStoreSpy()
 		let sut = LocalNewsReader(store: store, currentDate: currentDate)
 
 		trackMemoryLeak(store, file: file, line: line)
@@ -170,6 +137,46 @@ class CacheNewsUseCaseTests: XCTestCase {
 
 		XCTAssertEqual(receivedError as NSError?, expectedError, file: file, line: line)
 	}
+
+	private class NewsStoreSpy: NewsStore {
+
+		enum ReceivedMessage: Equatable {
+			case deleteCachedNews
+			case insert([NewsItem], Date)
+		}
+
+		private(set) var receivedMessages = [ReceivedMessage]()
+
+		private var deletionCompletions = [DeletionCompletion]()
+		private var insertionCompletions = [InsertionCompletion]()
+
+		func deleteCachedNews(completion: @escaping DeletionCompletion) {
+			deletionCompletions.append(completion)
+			receivedMessages.append(.deleteCachedNews)
+		}
+
+		func completeDeletion(with error: Error, at index: Int = 0) {
+			deletionCompletions[index](error)
+		}
+
+		func completeDeletionSuccessfully(at index: Int = 0) {
+			deletionCompletions[index](nil)
+		}
+
+		func insert(_ items: [NewsItem], timestamp: Date, completion: @escaping InsertionCompletion) {
+			insertionCompletions.append(completion)
+			receivedMessages.append(.insert(items, timestamp))
+		}
+
+		func completeInsertion(with error: Error, at index: Int = 0) {
+			insertionCompletions[index](error)
+		}
+
+		func completeInsertionSuccessfully(at index: Int = 0) {
+			insertionCompletions[index](nil)
+		}
+	}
+
 
 	func uniqueItem() -> NewsItem {
 		return NewsItem(
