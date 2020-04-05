@@ -29,10 +29,50 @@ public final class RemoteNewsReader: NewsReader {
 			guard self != nil else { return }
 			switch result {
 			case let .success(data, response):
-				completion(NewsItemsMapper.map(data, from: response))
+				completion(RemoteNewsReader.map(data, response: response))
 			case .failure:
 				completion(.failure(Error.connectivity))
 			}
 		})
+	}
+
+	private static func map(_ data: Data, response: HTTPURLResponse) -> Result {
+		do {
+			let items = try NewsItemsMapper.map(data, from: response)
+			return .success(items.toModels())
+		} catch {
+			return .failure(error)
+		}
+	}
+}
+
+private extension Array where Element == RemoteNewsItem {
+	func toModels() -> [NewsItem] {
+		return map {
+			NewsItem(
+				id: $0.id,
+				source: $0.source.toModel,
+				tags: $0.tags?.toModels(),
+				author: $0.author,
+				title: $0.title,
+				description: $0.description,
+				urlToImage: $0.urlToImage,
+				content: $0.content
+			)
+		}
+	}
+}
+
+private extension Array where Element == RemoteTag {
+	func toModels() -> [Tag] {
+		return map {
+			Tag(id: $0.id, name: $0.name)
+		}
+	}
+}
+
+private extension RemoteSource {
+	var toModel: Source {
+		return Source(id: id, name: name)
 	}
 }
