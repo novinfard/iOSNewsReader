@@ -191,7 +191,18 @@ class CacheNewsUseCaseTests: XCTestCase {
 
 	private func uniqueItems() -> (models: [NewsItem], local: [LocalNewsItem]) {
 		let items = [uniqueItem(), uniqueItem()]
-		let localItems = items.map { LocalNewsItem(id: $0.id, source: $0.source, tags: $0.tags, author: $0.author, title: $0.title, description: $0.description, urlToImage: $0.urlToImage, content: $0.content) }
+		let localItems = items.map {
+			return LocalNewsItem(
+				id: $0.id,
+				source: LocalSourceItem(id: $0.source.id, name: $0.source.name),
+				tags: $0.tags?.toLocal(),
+				author: $0.author,
+				title: $0.title,
+				description: $0.description,
+				urlToImage: $0.urlToImage,
+				content: $0.content
+			)
+		}
 		return (items, localItems)
 	}
 
@@ -202,4 +213,12 @@ class CacheNewsUseCaseTests: XCTestCase {
  	private func anyNSError() -> NSError {
  		return NSError(domain: "any error", code: 0)
  	}
+}
+
+private extension Array where Element == Tag {
+	func toLocal() -> [LocalTagItem] {
+		return map {
+			LocalTagItem(id: $0.id, name: $0.name)
+		}
+	}
 }

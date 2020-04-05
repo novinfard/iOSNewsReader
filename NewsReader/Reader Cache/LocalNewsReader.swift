@@ -43,8 +43,8 @@ private extension Array where Element == NewsItem {
 		return map {
 			LocalNewsItem(
 				id: $0.id,
-				source: $0.source,
-				tags: $0.tags,
+				source: $0.source.toLocal,
+				tags: $0.tags?.toLocal(),
 				author: $0.author,
 				title: $0.title,
 				description: $0.description,
@@ -52,5 +52,19 @@ private extension Array where Element == NewsItem {
 				content: $0.content
 			)
 		}
+	}
+}
+
+private extension Array where Element == Tag {
+	func toLocal() -> [LocalTagItem] {
+		return map {
+			LocalTagItem(id: $0.id, name: $0.name)
+		}
+	}
+}
+
+private extension Source {
+	var toLocal: LocalSourceItem {
+		return LocalSourceItem(id: self.id, name: self.name)
 	}
 }
