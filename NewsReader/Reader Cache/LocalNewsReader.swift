@@ -30,8 +30,8 @@ public final class LocalNewsReader {
 		}
 	}
 
-	public func load() {
-		store.retrieve()
+	public func load(completion: @escaping (Error?) -> Void ) {
+		store.retrieve(completion: completion)
 	}
 
 	private func cache(_ items: [NewsItem], with completion: @escaping (Error?) -> Void) {
