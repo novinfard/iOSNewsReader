@@ -30,6 +30,10 @@ public final class LocalNewsReader {
 		}
 	}
 
+	public func load() {
+		store.retrieve()
+	}
+
 	private func cache(_ items: [NewsItem], with completion: @escaping (Error?) -> Void) {
 		store.insert(items.toLocal(), timestamp: currentDate()) { [weak self] error in
 			guard self != nil else { return }

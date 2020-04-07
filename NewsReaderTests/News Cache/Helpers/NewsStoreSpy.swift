@@ -13,6 +13,7 @@ class NewsStoreSpy: NewsStore {
 	enum ReceivedMessage: Equatable {
 		case deleteCachedNews
 		case insert([LocalNewsItem], Date)
+		case retrieve
 	}
 
 	private(set) var receivedMessages = [ReceivedMessage]()
@@ -44,5 +45,9 @@ class NewsStoreSpy: NewsStore {
 
 	func completeInsertionSuccessfully(at index: Int = 0) {
 		insertionCompletions[index](nil)
+	}
+
+	func retrieve() {
+		receivedMessages.append(.retrieve)
 	}
 }

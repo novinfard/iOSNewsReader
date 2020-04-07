@@ -14,4 +14,5 @@ public protocol NewsStore {
 
 	func deleteCachedNews(completion: @escaping DeletionCompletion)
 	func insert(_ items: [LocalNewsItem], timestamp: Date, completion: @escaping InsertionCompletion)
+	func retrieve()
 }
