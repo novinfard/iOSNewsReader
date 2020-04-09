@@ -57,4 +57,8 @@ class NewsStoreSpy: NewsStore {
 		retrievalCompletions[index](error)
 	}
 
+	func completeRetrievalWithEmptyCache(at index: Int = 0) {
+		retrievalCompletions[index](nil)
+	}
+
 }
