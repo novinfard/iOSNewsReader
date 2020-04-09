@@ -13,6 +13,7 @@ public final class LocalNewsReader {
 	private let currentDate: () -> Date
 
 	public typealias SaveResult = Error?
+	public typealias LoadResult = NewsReaderResult
 
 	public init(store: NewsStore, currentDate: @escaping () -> Date) {
 		self.store = store
@@ -30,8 +31,13 @@ public final class LocalNewsReader {
 		}
 	}
 
-	public func load(completion: @escaping (Error?) -> Void ) {
-		store.retrieve(completion: completion)
+	public func load(completion: @escaping (LoadResult) -> Void ) {
+		store.retrieve { error in
+			if let error = error {
+				completion(.failure(error))
+			}
+
+		}
 	}
 
 	private func cache(_ items: [NewsItem], with completion: @escaping (Error?) -> Void) {
