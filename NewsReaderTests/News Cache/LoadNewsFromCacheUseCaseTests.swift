@@ -74,6 +74,15 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 		})
 	}
 
+	func test_load_deletesCacheOnRetrievalError() {
+		let (sut, store) = makeSut()
+
+		sut.load { _ in }
+		store.completeRetrieval(with: anyNSError())
+
+		XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedNews])
+	}
+
 	// MARK: - Helpers
 
 	private func makeSut(currentDate: @escaping () -> Date = Date.init,
