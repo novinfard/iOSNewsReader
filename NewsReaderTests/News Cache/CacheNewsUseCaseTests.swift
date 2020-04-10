@@ -175,7 +175,7 @@ class CacheNewsUseCaseTests: XCTestCase {
  	}
 }
 
-private extension Array where Element == Tag {
+extension Array where Element == Tag {
 	func toLocal() -> [LocalTagItem] {
 		return map {
 			LocalTagItem(id: $0.id, name: $0.name)

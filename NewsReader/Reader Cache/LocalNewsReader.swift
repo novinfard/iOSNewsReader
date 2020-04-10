@@ -32,10 +32,13 @@ public final class LocalNewsReader {
 	}
 
 	public func load(completion: @escaping (LoadResult) -> Void ) {
-		store.retrieve { error in
-			if let error = error {
+		store.retrieve { result in
+			switch result {
+			case let .found(items: items, timestamp: _):
+				completion(.success(items.toModels()))
+			case let .failure(error):
 				completion(.failure(error))
-			} else {
+			case .empty:
 				completion(.success([]))
 			}
 		}
@@ -66,7 +69,24 @@ private extension Array where Element == NewsItem {
 	}
 }
 
-private extension Array where Element == Tag {
+private extension Array where Element == LocalNewsItem {
+	func toModels() -> [NewsItem] {
+		return map {
+			NewsItem(
+				id: $0.id,
+				source: $0.source.toModel,
+				tags: $0.tags?.toModels(),
+				author: $0.author,
+				title: $0.title,
+				description: $0.description,
+				urlToImage: $0.urlToImage,
+				content: $0.content
+			)
+		}
+	}
+}
+
+extension Array where Element == Tag {
 	func toLocal() -> [LocalTagItem] {
 		return map {
 			LocalTagItem(id: $0.id, name: $0.name)
@@ -77,5 +97,20 @@ private extension Array where Element == Tag {
 private extension Source {
 	var toLocal: LocalSourceItem {
 		return LocalSourceItem(id: self.id, name: self.name)
+	}
+}
+
+
+private extension Array where Element == LocalTagItem {
+	func toModels() -> [Tag] {
+		return map {
+			Tag(id: $0.id, name: $0.name)
+		}
+	}
+}
+
+private extension LocalSourceItem {
+	var toModel: Source {
+		return Source(id: self.id, name: self.name)
 	}
 }

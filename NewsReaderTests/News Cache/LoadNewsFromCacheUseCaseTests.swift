@@ -41,6 +41,17 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 		})
 	}
 
+	func test_load_delviersCachedItemOnLessThanSevenDaysOldCache() {
+		let items = uniqueItems()
+		let fixedCurrentDate = Date()
+		let lessThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
+		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
+
+		expect(sut, toCompleteWith: .success(items.models), when: {
+			store.completeRetrievalWith(items.local, timestamp: lessThanSevenDaysOldTimestamp)
+		})
+	}
+
 	// MARK: - Helpers
 
 	private func makeSut(currentDate: @escaping () -> Date = Date.init,
@@ -81,5 +92,49 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
  	private func anyNSError() -> NSError {
  		return NSError(domain: "any error", code: 0)
  	}
+
+	private func anyId() -> Int {
+		return Int.random(in: 1 ... 1_000_000)
+	}
+
+	private func uniqueItem() -> NewsItem {
+		return NewsItem(
+			id: anyId(),
+			source: Source(id: nil, name: "any"),
+			tags: nil,
+			author: "any",
+			title: "any",
+			description: "any",
+			urlToImage: URL(string: "https://a-url")!,
+			content: "any"
+		)
+	}
+
+	private func uniqueItems() -> (models: [NewsItem], local: [LocalNewsItem]) {
+		let items = [uniqueItem(), uniqueItem()]
+		let localItems = items.map {
+			return LocalNewsItem(
+				id: $0.id,
+				source: LocalSourceItem(id: $0.source.id, name: $0.source.name),
+				tags: $0.tags?.toLocal(),
+				author: $0.author,
+				title: $0.title,
+				description: $0.description,
+				urlToImage: $0.urlToImage,
+				content: $0.content
+			)
+		}
+		return (items, localItems)
+	}
 	
+}
+
+private extension Date {
+	func adding(days: Int) -> Date {
+		return Calendar(identifier: .gregorian).date(byAdding: .day, value: days, to: self)!
+	}
+
+	func adding(seconds: TimeInterval) -> Date {
+		return self + seconds
+	}
 }
