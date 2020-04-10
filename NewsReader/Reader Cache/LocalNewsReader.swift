@@ -32,16 +32,24 @@ public final class LocalNewsReader {
 	}
 
 	public func load(completion: @escaping (LoadResult) -> Void ) {
-		store.retrieve { result in
+		store.retrieve { [unowned self] result in
 			switch result {
-			case let .found(items: items, timestamp: _):
+			case let .found(items: items, timestamp: timestamp) where self.validate(timestamp):
 				completion(.success(items.toModels()))
 			case let .failure(error):
 				completion(.failure(error))
-			case .empty:
+			case .empty, .found:
 				completion(.success([]))
 			}
 		}
+	}
+
+	private func validate(_ timestamp: Date) -> Bool {
+		let calendar = Calendar(identifier: .gregorian)
+		guard let maxCacheAge = calendar.date(byAdding: .day, value: 7, to: timestamp) else {
+			return false
+		}
+		return currentDate() < maxCacheAge
 	}
 
 	private func cache(_ items: [NewsItem], with completion: @escaping (Error?) -> Void) {

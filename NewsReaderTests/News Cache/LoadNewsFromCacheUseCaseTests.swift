@@ -52,6 +52,17 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 		})
 	}
 
+	func test_load_delviersNoItemOnSevenDaysOldCache() {
+		let items = uniqueItems()
+		let fixedCurrentDate = Date()
+		let lessThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7)
+		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
+
+		expect(sut, toCompleteWith: .success([]), when: {
+			store.completeRetrievalWith(items.local, timestamp: lessThanSevenDaysOldTimestamp)
+		})
+	}
+
 	// MARK: - Helpers
 
 	private func makeSut(currentDate: @escaping () -> Date = Date.init,
