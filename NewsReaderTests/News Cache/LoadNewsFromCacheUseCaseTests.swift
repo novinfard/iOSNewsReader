@@ -52,14 +52,25 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 		})
 	}
 
-	func test_load_delviersNoItemOnSevenDaysOldCache() {
+	func test_load_delviersNoItemsOnSevenDaysOldCache() {
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let lessThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7)
+		let sevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7)
 		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
 
 		expect(sut, toCompleteWith: .success([]), when: {
-			store.completeRetrievalWith(items.local, timestamp: lessThanSevenDaysOldTimestamp)
+			store.completeRetrievalWith(items.local, timestamp: sevenDaysOldTimestamp)
+		})
+	}
+
+	func test_load_delviersNoItemsOnMoreThanSevenDaysOldCache() {
+		let items = uniqueItems()
+		let fixedCurrentDate = Date()
+		let moreThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: -1)
+		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
+
+		expect(sut, toCompleteWith: .success([]), when: {
+			store.completeRetrievalWith(items.local, timestamp: moreThanSevenDaysOldTimestamp)
 		})
 	}
 
