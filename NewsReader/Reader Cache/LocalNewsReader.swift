@@ -35,12 +35,18 @@ public final class LocalNewsReader {
 	public func load(completion: @escaping (LoadResult) -> Void ) {
 		store.retrieve { [unowned self] result in
 			switch result {
-			case let .found(items: items, timestamp: timestamp) where self.validate(timestamp):
-				completion(.success(items.toModels()))
 			case let .failure(error):
 				self.store.deleteCachedNews { _ in }
 				completion(.failure(error))
-			case .empty, .found:
+
+			case let .found(items: items, timestamp: timestamp) where self.validate(timestamp):
+				completion(.success(items.toModels()))
+
+			case .found: // invalide timestamp
+				self.store.deleteCachedNews { _ in }
+				completion(.success([]))
+
+			case .empty:
 				completion(.success([]))
 			}
 		}
