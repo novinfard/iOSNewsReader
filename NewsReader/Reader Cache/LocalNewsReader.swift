@@ -37,7 +37,6 @@ public final class LocalNewsReader {
 			guard let self = self else { return }
 			switch result {
 			case let .failure(error):
-				self.store.deleteCachedNews { _ in }
 				completion(.failure(error))
 
 			case let .found(items: items, timestamp: timestamp) where self.validate(timestamp):
@@ -51,6 +50,11 @@ public final class LocalNewsReader {
 				completion(.success([]))
 			}
 		}
+	}
+
+	public func validateCache() {
+		store.retrieve { _ in }
+		store.deleteCachedNews { _ in}
 	}
 
 	private let maxCacheAgeInDays = 7
