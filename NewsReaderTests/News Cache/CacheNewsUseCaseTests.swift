@@ -135,44 +135,6 @@ class CacheNewsUseCaseTests: XCTestCase {
 
 		XCTAssertEqual(receivedError as NSError?, expectedError, file: file, line: line)
 	}
-
-	private func uniqueItem() -> NewsItem {
-		return NewsItem(
-			id: anyId(),
-			source: Source(id: nil, name: "any"),
-			tags: nil,
-			author: "any",
-			title: "any",
-			description: "any",
-			urlToImage: URL(string: "https://a-url")!,
-			content: "any"
-		)
-	}
-
-	private func uniqueItems() -> (models: [NewsItem], local: [LocalNewsItem]) {
-		let items = [uniqueItem(), uniqueItem()]
-		let localItems = items.map {
-			return LocalNewsItem(
-				id: $0.id,
-				source: LocalSourceItem(id: $0.source.id, name: $0.source.name),
-				tags: $0.tags?.toLocal(),
-				author: $0.author,
-				title: $0.title,
-				description: $0.description,
-				urlToImage: $0.urlToImage,
-				content: $0.content
-			)
-		}
-		return (items, localItems)
-	}
-
-	private func anyId() -> Int {
-		return Int.random(in: 1 ... 1_000_000)
-	}
-
- 	private func anyNSError() -> NSError {
- 		return NSError(domain: "any error", code: 0)
- 	}
 }
 
 extension Array where Element == Tag {
