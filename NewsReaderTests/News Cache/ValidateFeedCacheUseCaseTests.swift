@@ -74,6 +74,18 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 		XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedNews])
 	}
 
+	func test_validateCache_doesNotDeleteInvalidCacheAfterSUTInstanceHasBeenDeallocated() {
+ 		let store = NewsStoreSpy()
+		var sut: LocalNewsReader? = LocalNewsReader(store: store, currentDate: Date.init)
+
+ 		sut?.validateCache()
+
+ 		sut = nil
+ 		store.completeRetrieval(with: anyNSError())
+
+ 		XCTAssertEqual(store.receivedMessages, [.retrieve])
+ 	}
+
 
 	// MARK: - Helpers
 
