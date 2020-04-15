@@ -13,9 +13,6 @@ public final class LocalNewsReader {
 	private let currentDate: () -> Date
 	private let calendar = Calendar(identifier: .gregorian)
 
-	public typealias SaveResult = Error?
-	public typealias LoadResult = NewsReaderResult
-
 	public init(store: NewsStore, currentDate: @escaping () -> Date) {
 		self.store = store
 		self.currentDate = currentDate
@@ -31,6 +28,8 @@ public final class LocalNewsReader {
 }
 
 extension LocalNewsReader {
+	public typealias SaveResult = Error?
+
 	public func save(_ items: [NewsItem], completion: @escaping (SaveResult) -> Void) {
 		store.deleteCachedNews() { [weak self] error in
 			guard let self = self else { return }
@@ -51,6 +50,8 @@ extension LocalNewsReader {
 }
 
 extension LocalNewsReader: NewsReader {
+	public typealias LoadResult = NewsReaderResult
+
 	public func load(completion: @escaping (LoadResult) -> Void ) {
 		store.retrieve { [weak self] result in
 			guard let self = self else { return }
