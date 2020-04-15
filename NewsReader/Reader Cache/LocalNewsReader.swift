@@ -53,8 +53,14 @@ public final class LocalNewsReader {
 	}
 
 	public func validateCache() {
-		store.retrieve { _ in }
-		store.deleteCachedNews { _ in}
+		store.retrieve { [unowned self] result in
+			switch result {
+			case .failure:
+				self.store.deleteCachedNews { _ in}
+			default:
+				break
+			}
+		}
 	}
 
 	private let maxCacheAgeInDays = 7
