@@ -105,7 +105,7 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 		XCTAssertEqual(store.receivedMessages, [.retrieve])
 	}
 
-	func test_load_deleteCacheOnSevenDaysOldCache() {
+	func test_load_hasNoSideEffectsOnSevenDaysOldCache() {
 		let (sut, store) = makeSut()
 
 		let items = uniqueItems()
@@ -115,10 +115,10 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 		sut.load { _ in }
 		store.completeRetrievalWith(items.local, timestamp: sevenDaysOldTimestamp)
 
-		XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedNews])
+		XCTAssertEqual(store.receivedMessages, [.retrieve])
 	}
 
-	func test_load_deleteCacheOnMoreThanSevenDaysOldCache() {
+	func test_load_hasNoSideEffectsOnMoreThanSevenDaysOldCache() {
 		let (sut, store) = makeSut()
 
 		let items = uniqueItems()
@@ -128,7 +128,7 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 		sut.load { _ in }
 		store.completeRetrievalWith(items.local, timestamp: moreThansevenDaysOldTimestamp)
 
-		XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedNews])
+		XCTAssertEqual(store.receivedMessages, [.retrieve])
 	}
 
 	func test_load_doesNotDeliverResultAfterSUTnstanceHasBeenDeallocated() {
