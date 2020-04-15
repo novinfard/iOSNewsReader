@@ -42,10 +42,7 @@ public final class LocalNewsReader {
 			case let .found(items: items, timestamp: timestamp) where self.validate(timestamp):
 				completion(.success(items.toModels()))
 
-			case .found: // invalide timestamp
-				completion(.success([]))
-
-			case .empty:
+			case .found, .empty:
 				completion(.success([]))
 			}
 		}
