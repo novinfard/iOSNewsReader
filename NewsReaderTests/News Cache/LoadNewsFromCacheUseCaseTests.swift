@@ -41,36 +41,36 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 		})
 	}
 
-	func test_load_delviersCachedItemOnLessThanSevenDaysOldCache() {
+	func test_load_delviersCachedItemOnNonExpiredCacheOldCache() {
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let lessThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
+		let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
 		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
 
 		expect(sut, toCompleteWith: .success(items.models), when: {
-			store.completeRetrievalWith(items.local, timestamp: lessThanSevenDaysOldTimestamp)
+			store.completeRetrievalWith(items.local, timestamp: nonExpiredTimestamp)
 		})
 	}
 
-	func test_load_delviersNoItemsOnSevenDaysOldCache() {
+	func test_load_delviersNoItemsOnCacheExpiration() {
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let sevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7)
+		let expirationTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
 		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
 
 		expect(sut, toCompleteWith: .success([]), when: {
-			store.completeRetrievalWith(items.local, timestamp: sevenDaysOldTimestamp)
+			store.completeRetrievalWith(items.local, timestamp: expirationTimestamp)
 		})
 	}
 
-	func test_load_delviersNoItemsOnMoreThanSevenDaysOldCache() {
+	func test_load_delviersNoItemsOnExpiredCache() {
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let moreThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: -1)
+		let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
 		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
 
 		expect(sut, toCompleteWith: .success([]), when: {
-			store.completeRetrievalWith(items.local, timestamp: moreThanSevenDaysOldTimestamp)
+			store.completeRetrievalWith(items.local, timestamp: expiredTimestamp)
 		})
 	}
 
@@ -92,41 +92,41 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 		XCTAssertEqual(store.receivedMessages, [.retrieve])
 	}
 
-	func test_load_hasNoSideEffectsOnLessThanSevenDaysOldCache() {
+	func test_load_hasNoSideEffectsOnNonExpiredCache() {
 		let (sut, store) = makeSut()
 
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let lessThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
+		let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
 
 		sut.load { _ in }
-		store.completeRetrievalWith(items.local, timestamp: lessThanSevenDaysOldTimestamp)
+		store.completeRetrievalWith(items.local, timestamp: nonExpiredTimestamp)
 
 		XCTAssertEqual(store.receivedMessages, [.retrieve])
 	}
 
-	func test_load_hasNoSideEffectsOnSevenDaysOldCache() {
+	func test_load_hasNoSideEffectsOnCacheExpiration() {
 		let (sut, store) = makeSut()
 
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let sevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7)
+		let expirationTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
 
 		sut.load { _ in }
-		store.completeRetrievalWith(items.local, timestamp: sevenDaysOldTimestamp)
+		store.completeRetrievalWith(items.local, timestamp: expirationTimestamp)
 
 		XCTAssertEqual(store.receivedMessages, [.retrieve])
 	}
 
-	func test_load_hasNoSideEffectsOnMoreThanSevenDaysOldCache() {
+	func test_load_hasNoSideEffectsOnExpiredCache() {
 		let (sut, store) = makeSut()
 
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let moreThansevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: -1)
+		let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
 
 		sut.load { _ in }
-		store.completeRetrievalWith(items.local, timestamp: moreThansevenDaysOldTimestamp)
+		store.completeRetrievalWith(items.local, timestamp: expiredTimestamp)
 
 		XCTAssertEqual(store.receivedMessages, [.retrieve])
 	}
