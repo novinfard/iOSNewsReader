@@ -40,7 +40,7 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
+		let nonExpiredTimestamp = fixedCurrentDate.minusNewsCacheMaxAge().adding(seconds: 1)
 
 		sut.validateCache()
 		store.completeRetrievalWith(items.local, timestamp: nonExpiredTimestamp)
@@ -53,7 +53,7 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let expirationTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
+		let expirationTimestamp = fixedCurrentDate.minusNewsCacheMaxAge()
 
 		sut.validateCache()
 		store.completeRetrievalWith(items.local, timestamp: expirationTimestamp)
@@ -66,7 +66,7 @@ class ValidateFeedCacheUseCaseTests: XCTestCase {
 
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
+		let expiredTimestamp = fixedCurrentDate.minusNewsCacheMaxAge().adding(seconds: -1)
 
 		sut.validateCache()
 		store.completeRetrievalWith(items.local, timestamp: expiredTimestamp)

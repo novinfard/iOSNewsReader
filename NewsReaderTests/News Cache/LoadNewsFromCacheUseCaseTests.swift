@@ -44,7 +44,7 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 	func test_load_delviersCachedItemOnNonExpiredCacheOldCache() {
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
+		let nonExpiredTimestamp = fixedCurrentDate.minusNewsCacheMaxAge().adding(seconds: 1)
 		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
 
 		expect(sut, toCompleteWith: .success(items.models), when: {
@@ -55,7 +55,7 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 	func test_load_delviersNoItemsOnCacheExpiration() {
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let expirationTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
+		let expirationTimestamp = fixedCurrentDate.minusNewsCacheMaxAge()
 		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
 
 		expect(sut, toCompleteWith: .success([]), when: {
@@ -66,7 +66,7 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 	func test_load_delviersNoItemsOnExpiredCache() {
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
+		let expiredTimestamp = fixedCurrentDate.minusNewsCacheMaxAge().adding(seconds: -1)
 		let (sut, store) = makeSut(currentDate: { fixedCurrentDate })
 
 		expect(sut, toCompleteWith: .success([]), when: {
@@ -97,7 +97,7 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
+		let nonExpiredTimestamp = fixedCurrentDate.minusNewsCacheMaxAge().adding(seconds: 1)
 
 		sut.load { _ in }
 		store.completeRetrievalWith(items.local, timestamp: nonExpiredTimestamp)
@@ -110,7 +110,7 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let expirationTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
+		let expirationTimestamp = fixedCurrentDate.minusNewsCacheMaxAge()
 
 		sut.load { _ in }
 		store.completeRetrievalWith(items.local, timestamp: expirationTimestamp)
@@ -123,7 +123,7 @@ class LoadNewsFromCacheUseCaseTests: XCTestCase {
 
 		let items = uniqueItems()
 		let fixedCurrentDate = Date()
-		let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
+		let expiredTimestamp = fixedCurrentDate.minusNewsCacheMaxAge().adding(seconds: -1)
 
 		sut.load { _ in }
 		store.completeRetrievalWith(items.local, timestamp: expiredTimestamp)
