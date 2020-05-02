@@ -121,9 +121,9 @@ class CodableNewsStoreTests: XCTestCase {
 	}
 
 	func test_retrieve_deliverEmptyOnEmptyCache() {
-		let sut = CodableNewsStore()
-
+		let sut = makeSUT()
 		let exp = expectation(description: "wait for cach retrieval")
+
 		sut.retrieve { result in
 			switch result {
 			case .empty:
@@ -139,9 +139,9 @@ class CodableNewsStoreTests: XCTestCase {
 	}
 
 	func test_retrieve_hasNoSideEffectOnEmptyCache() {
-		let sut = CodableNewsStore()
-
+		let sut = makeSUT()
 		let exp = expectation(description: "wait for cach retrieval")
+
 		sut.retrieve { firstResult in
 			sut.retrieve { secondResult in
 				switch (firstResult, secondResult) {
@@ -159,7 +159,7 @@ class CodableNewsStoreTests: XCTestCase {
 	}
 
 	func test_retrieveAfterInsertingToEmptyCache_deliverInsertedValues() {
-		let sut = CodableNewsStore()
+		let sut = makeSUT()
 		let items = uniqueItems().local
 		let timestamp = Date()
 		let exp = expectation(description: "wait for cach retrieval")
@@ -181,6 +181,14 @@ class CodableNewsStoreTests: XCTestCase {
 		}
 
 		wait(for: [exp], timeout: 1.0)
+	}
+
+	// MARK: - Helpers
+
+	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableNewsStore {
+		let sut = CodableNewsStore()
+		trackMemoryLeak(sut, file: file, line: line)
+		return sut
 	}
 
 }
