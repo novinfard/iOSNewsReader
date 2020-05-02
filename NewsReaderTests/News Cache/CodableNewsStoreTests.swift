@@ -83,7 +83,11 @@ class CodableNewsStore {
 		}
 	}
 
-	private let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("news.store")
+	private let storeURL: URL
+
+	init(storeURL: URL) {
+		self.storeURL = storeURL
+	}
 	
 	func retrieve(completion: @escaping NewsStore.RetrievalCompletion) {
 		guard let data = try? Data(contentsOf: storeURL) else {
@@ -186,7 +190,8 @@ class CodableNewsStoreTests: XCTestCase {
 	// MARK: - Helpers
 
 	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableNewsStore {
-		let sut = CodableNewsStore()
+		let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("news.store")
+		let sut = CodableNewsStore(storeURL: storeURL)
 		trackMemoryLeak(sut, file: file, line: line)
 		return sut
 	}
