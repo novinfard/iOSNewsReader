@@ -110,18 +110,16 @@ class CodableNewsStore {
 
 class CodableNewsStoreTests: XCTestCase {
 
-	override class func setUp() {
+	override func setUp() {
 		super.setUp()
 
-		let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("news.store")
-		try? FileManager.default.removeItem(at: storeURL)
+		try? FileManager.default.removeItem(at: storeURL())
 	}
 
 	override func tearDown() {
 		super.tearDown()
 
-		let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("news.store")
-		try? FileManager.default.removeItem(at: storeURL)
+		try? FileManager.default.removeItem(at: storeURL())
 	}
 
 	func test_retrieve_deliverEmptyOnEmptyCache() {
@@ -190,10 +188,13 @@ class CodableNewsStoreTests: XCTestCase {
 	// MARK: - Helpers
 
 	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableNewsStore {
-		let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("news.store")
-		let sut = CodableNewsStore(storeURL: storeURL)
+		let sut = CodableNewsStore(storeURL: storeURL())
 		trackMemoryLeak(sut, file: file, line: line)
 		return sut
+	}
+
+	private func storeURL() -> URL {
+		return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("news.store")
 	}
 
 }
