@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct LocalNewsItem: Equatable, Codable {
+public struct LocalNewsItem: Equatable {
 	public let id: Int
 	public let source: LocalSourceItem
 	public let tags: [LocalTagItem]?
@@ -38,7 +38,7 @@ public struct LocalNewsItem: Equatable, Codable {
 	}
 }
 
-public struct LocalSourceItem: Equatable, Codable {
+public struct LocalSourceItem: Equatable {
 	public let id: Int?
 	public let name: String
 
@@ -48,7 +48,7 @@ public struct LocalSourceItem: Equatable, Codable {
 	}
 }
 
-public struct LocalTagItem: Equatable, Codable {
+public struct LocalTagItem: Equatable {
 	public let id: Int
 	public let name: String
 

@@ -12,8 +12,75 @@ import NewsReader
 class CodableNewsStore {
 
 	private struct Cache: Codable {
-		let news: [LocalNewsItem]
+		let news: [CodableNewsItem]
 		let timestamp: Date
+
+		var localNews: [LocalNewsItem] {
+ 			return news.map { $0.local }
+ 		}
+	}
+
+	private struct CodableNewsItem: Codable {
+		private let id: Int
+		private let source: CodableSourceItem
+		private let tags: [CodableTagItem]?
+		private let author: String
+		private let title: String
+		private let description: String
+		private let urlToImage: URL?
+		private let content: String
+
+		init(_ news: LocalNewsItem) {
+			self.id = news.id
+			self.source = CodableSourceItem(news.source)
+			self.tags = news.tags?.map(CodableTagItem.init)
+			self.author = news.author
+			self.title = news.title
+			self.description = news.description
+			self.urlToImage = news.urlToImage
+			self.content = news.content
+		}
+
+		var local: LocalNewsItem {
+			return LocalNewsItem(
+				id: id,
+				source: source.local,
+				tags: tags?.map({ $0.local }),
+				author: author,
+				title: title,
+				description: description,
+				urlToImage: urlToImage,
+				content: content
+			)
+		}
+	}
+
+	private struct CodableSourceItem: Codable {
+		private let id: Int?
+		private let name: String
+
+		init(_ source: LocalSourceItem) {
+			self.id = source.id
+			self.name = source.name
+		}
+
+		var local: LocalSourceItem {
+			return LocalSourceItem(id: id, name: name)
+		}
+	}
+
+	private struct CodableTagItem: Codable {
+		private let id: Int
+		private let name: String
+
+		init(_ tag: LocalTagItem) {
+			self.id = tag.id
+			self.name = tag.name
+		}
+
+		var local: LocalTagItem {
+			return LocalTagItem(id: id, name: name)
+		}
 	}
 
 	private let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("news.store")
@@ -25,12 +92,13 @@ class CodableNewsStore {
 
 		let decoder = JSONDecoder()
 		let cache = try! decoder.decode(Cache.self, from: data)
-		completion(.found(items: cache.news, timestamp: cache.timestamp))
+		completion(.found(items: cache.localNews, timestamp: cache.timestamp))
 	}
 
 	func insert(_ items: [LocalNewsItem], timestamp: Date, completion: @escaping NewsStore.InsertionCompletion) {
 		let encoder = JSONEncoder()
-		let encoded = try! encoder.encode(Cache(news: items, timestamp: timestamp))
+		let cache = Cache(news: items.map(CodableNewsItem.init), timestamp: timestamp)
+		let encoded = try! encoder.encode(cache)
 		try! encoded.write(to: storeURL)
 		completion(nil)
 	}
