@@ -141,12 +141,7 @@ class CodableNewsStoreTests: XCTestCase {
 		let timestamp = Date()
 
 		// when
-		let exp = expectation(description: "wait for cach retrieval")
-		sut.insert(items, timestamp: timestamp) { insertionError in
-			XCTAssertNil(insertionError, "Expected items to be inserted successfully")
-			exp.fulfill()
-		}
-		wait(for: [exp], timeout: 1.0)
+		insert((items, timestamp: timestamp), to: sut)
 
 		// then
 		expect(sut, toRetrieve: .found(items: items, timestamp: timestamp))
@@ -157,12 +152,7 @@ class CodableNewsStoreTests: XCTestCase {
 		let items = uniqueItems().local
 		let timestamp = Date()
 
-		let exp = expectation(description: "wait for cach insertion")
-		sut.insert(items, timestamp: timestamp) { insertionError in
-			XCTAssertNil(insertionError, "Expected items to be inserted successfully")
-			exp.fulfill()
-		}
-		wait(for: [exp], timeout: 1.0)
+		insert((items, timestamp: timestamp), to: sut)
 
 		expect(sut, toRetrieveTwice: .found(items: items, timestamp: timestamp))
 	}
@@ -178,6 +168,17 @@ class CodableNewsStoreTests: XCTestCase {
 	private func testSpecificStoreURL() -> URL {
 		return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("\(type(of: self)).store")
 	}
+
+	private func insert(_ cache: (items: [LocalNewsItem], timestamp: Date),
+						to sut: CodableNewsStore) {
+
+		let exp = expectation(description: "Wait for cache insertion")
+ 		sut.insert(cache.items, timestamp: cache.timestamp) { insertionError in
+ 			XCTAssertNil(insertionError, "Expected feed to be inserted successfully")
+ 			exp.fulfill()
+ 		}
+ 		wait(for: [exp], timeout: 1.0)
+ 	}
 
 	private func expect(_ sut: CodableNewsStore,
 						toRetrieveTwice expectedResult: RetrievedCachedNewsResult,
