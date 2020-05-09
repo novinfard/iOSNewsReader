@@ -130,22 +130,8 @@ class CodableNewsStoreTests: XCTestCase {
 
 	func test_retrieve_hasNoSideEffectOnEmptyCache() {
 		let sut = makeSUT()
-		let exp = expectation(description: "wait for cach retrieval")
 
-		sut.retrieve { firstResult in
-			sut.retrieve { secondResult in
-				switch (firstResult, secondResult) {
-				case (.empty, .empty):
-					break
-				default:
-					XCTFail("Expected retrieving twice from empty cache to deliver same empty result, got \(firstResult) and \(secondResult) instead")
-				}
-
-				exp.fulfill()
-			}
-		}
-
-		wait(for: [exp], timeout: 1.0)
+		expect(sut, toRetrieveTwice: .empty)
 	}
 
 	func test_retrieveAfterInsertingToEmptyCache_deliverInsertedValues() {
@@ -170,29 +156,15 @@ class CodableNewsStoreTests: XCTestCase {
 		let sut = makeSUT()
 		let items = uniqueItems().local
 		let timestamp = Date()
-		let exp = expectation(description: "wait for cach retrieval")
 
+		let exp = expectation(description: "wait for cach insertion")
 		sut.insert(items, timestamp: timestamp) { insertionError in
 			XCTAssertNil(insertionError, "Expected items to be inserted successfully")
-
-			sut.retrieve { firstResult in
-				sut.retrieve { secondResult in
-					switch (firstResult, secondResult) {
-					case let (.found(firstFound), .found(secondFound)):
-						XCTAssertEqual(firstFound.timestamp, timestamp)
-						XCTAssertEqual(firstFound.items, items)
-
-						XCTAssertEqual(secondFound.timestamp, timestamp)
-						XCTAssertEqual(secondFound.items, items)
-					default:
-						XCTFail("Expected retrieving twice from non empty cache to deliver same found result with news \(items) and timestamp \(timestamp), got \(firstResult) and \(secondResult) instead")
-					}
-
-					exp.fulfill()
-				}			}
+			exp.fulfill()
 		}
-
 		wait(for: [exp], timeout: 1.0)
+
+		expect(sut, toRetrieveTwice: .found(items: items, timestamp: timestamp))
 	}
 
 	// MARK: - Helpers
@@ -206,6 +178,15 @@ class CodableNewsStoreTests: XCTestCase {
 	private func testSpecificStoreURL() -> URL {
 		return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!.appendingPathComponent("\(type(of: self)).store")
 	}
+
+	private func expect(_ sut: CodableNewsStore,
+						toRetrieveTwice expectedResult: RetrievedCachedNewsResult,
+						file: StaticString = #file,
+						line: UInt = #line) {
+
+ 		expect(sut, toRetrieve: expectedResult, file: file, line: line)
+ 		expect(sut, toRetrieve: expectedResult, file: file, line: line)
+ 	}
 
 	private func expect(_ sut: CodableNewsStore,
 						toRetrieve expectedResult: RetrievedCachedNewsResult,
