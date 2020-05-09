@@ -35,6 +35,7 @@
 		CDDE88892447A33A00345916 /* NewsCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDE88882447A33A00345916 /* NewsCacheTestHelpers.swift */; };
 		CDDE888B2447A47F00345916 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDE888A2447A47F00345916 /* SharedTestHelpers.swift */; };
 		CDDE8893244A3E3000345916 /* NewsCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDE8892244A3E3000345916 /* NewsCachePolicy.swift */; };
+		CDE2101A2466C4D500DD1FEF /* CodableNewsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE210192466C4D500DD1FEF /* CodableNewsStore.swift */; };
 		CDEA12D123F0A39200A019E4 /* NewsItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEA12D023F0A39200A019E4 /* NewsItemsMapper.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,7 @@
 		CDDE88882447A33A00345916 /* NewsCacheTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCacheTestHelpers.swift; sourceTree = "<group>"; };
 		CDDE888A2447A47F00345916 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		CDDE8892244A3E3000345916 /* NewsCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCachePolicy.swift; sourceTree = "<group>"; };
+		CDE210192466C4D500DD1FEF /* CodableNewsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableNewsStore.swift; sourceTree = "<group>"; };
 		CDEA12D023F0A39200A019E4 /* NewsItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemsMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -246,6 +248,7 @@
 				CDD094ED2438093300F5435A /* NewsStore.swift */,
 				CDAB32C5243A944E00D551F2 /* LocalNewsItem.swift */,
 				CDDE8892244A3E3000345916 /* NewsCachePolicy.swift */,
+				CDE210192466C4D500DD1FEF /* CodableNewsStore.swift */,
 			);
 			path = "Reader Cache";
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				CDD2008023F0A2DF009EB60F /* HTTPClient.swift in Sources */,
 				CDEA12D123F0A39200A019E4 /* NewsItemsMapper.swift in Sources */,
 				CD11325223EC08210026B935 /* RemoteNewsReader.swift in Sources */,
+				CDE2101A2466C4D500DD1FEF /* CodableNewsStore.swift in Sources */,
 				CD6614EC23F021EF00FEA9E6 /* Formatter+Extensions.swift in Sources */,
 				CDD094EC2438084900F5435A /* LocalNewsReader.swift in Sources */,
 				CDAB32C6243A944E00D551F2 /* LocalNewsItem.swift in Sources */,
