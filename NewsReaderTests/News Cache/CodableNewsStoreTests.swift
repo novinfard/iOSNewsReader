@@ -94,9 +94,13 @@ class CodableNewsStore {
 			return completion(.empty)
 		}
 
-		let decoder = JSONDecoder()
-		let cache = try! decoder.decode(Cache.self, from: data)
-		completion(.found(items: cache.localNews, timestamp: cache.timestamp))
+		do {
+			let decoder = JSONDecoder()
+			let cache = try decoder.decode(Cache.self, from: data)
+			completion(.found(items: cache.localNews, timestamp: cache.timestamp))
+		} catch {
+			completion(.failure(error))
+		}
 	}
 
 	func insert(_ items: [LocalNewsItem], timestamp: Date, completion: @escaping NewsStore.InsertionCompletion) {
@@ -157,6 +161,14 @@ class CodableNewsStoreTests: XCTestCase {
 		expect(sut, toRetrieveTwice: .found(items: items, timestamp: timestamp))
 	}
 
+	func test_retrieve_deliversFailureOnRetrievalError() {
+		let sut = makeSUT()
+
+		try! "invalid data".write(to: testSpecificStoreURL(), atomically: false, encoding: .utf8)
+
+		expect(sut, toRetrieve: .failure(anyNSError()))
+	}
+
 	// MARK: - Helpers
 
 	private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableNewsStore {
@@ -198,7 +210,8 @@ class CodableNewsStoreTests: XCTestCase {
 
  		sut.retrieve { retrievedResult in
  			switch (expectedResult, retrievedResult) {
- 			case (.empty, .empty):
+			case (.empty, .empty),
+				 (.failure, .failure):
  				break
 
  			case let (.found(expected), .found(retrieved)):
