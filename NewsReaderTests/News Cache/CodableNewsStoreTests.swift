@@ -254,7 +254,7 @@ class CodableNewsStoreTests: XCTestCase {
 
 	// MARK: - Helpers
 
-	private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> CodableNewsStore {
+	private func makeSUT(storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> NewsStore {
 		let sut = CodableNewsStore(storeURL: storeURL ?? testSpecificStoreURL())
 		trackMemoryLeak(sut, file: file, line: line)
 		return sut
@@ -270,7 +270,7 @@ class CodableNewsStoreTests: XCTestCase {
 
 	@discardableResult
 	private func insert(_ cache: (items: [LocalNewsItem], timestamp: Date),
-						to sut: CodableNewsStore) -> Error? {
+						to sut: NewsStore) -> Error? {
 
 		let exp = expectation(description: "Wait for cache insertion")
 		var insertionError: Error?
@@ -284,7 +284,7 @@ class CodableNewsStoreTests: XCTestCase {
 		return insertionError
  	}
 
-	private func deleteCache(from sut: CodableNewsStore) -> Error? {
+	private func deleteCache(from sut: NewsStore) -> Error? {
  		let exp = expectation(description: "Wait for cache deletion")
  		var deletionError: Error?
  		sut.deleteCachedNews { receivedDeletionError in
@@ -295,7 +295,7 @@ class CodableNewsStoreTests: XCTestCase {
  		return deletionError
  	}
 
-	private func expect(_ sut: CodableNewsStore,
+	private func expect(_ sut: NewsStore,
 						toRetrieveTwice expectedResult: RetrievedCachedNewsResult,
 						file: StaticString = #file,
 						line: UInt = #line) {
@@ -304,7 +304,7 @@ class CodableNewsStoreTests: XCTestCase {
  		expect(sut, toRetrieve: expectedResult, file: file, line: line)
  	}
 
-	private func expect(_ sut: CodableNewsStore,
+	private func expect(_ sut: NewsStore,
 						toRetrieve expectedResult: RetrievedCachedNewsResult,
 						file: StaticString = #file,
 						line: UInt = #line) {
