@@ -9,7 +9,7 @@
 import XCTest
 import NewsReader
 
-class CodableNewsStore {
+class CodableNewsStore: NewsStore {
 
 	private struct Cache: Codable {
 		let news: [CodableNewsItem]
@@ -89,7 +89,7 @@ class CodableNewsStore {
 		self.storeURL = storeURL
 	}
 	
-	func retrieve(completion: @escaping NewsStore.RetrievalCompletion) {
+	func retrieve(completion: @escaping RetrievalCompletion) {
 		guard let data = try? Data(contentsOf: storeURL) else {
 			return completion(.empty)
 		}
@@ -103,7 +103,7 @@ class CodableNewsStore {
 		}
 	}
 
-	func insert(_ items: [LocalNewsItem], timestamp: Date, completion: @escaping NewsStore.InsertionCompletion) {
+	func insert(_ items: [LocalNewsItem], timestamp: Date, completion: @escaping InsertionCompletion) {
 		do {
 			let encoder = JSONEncoder()
 			let cache = Cache(news: items.map(CodableNewsItem.init), timestamp: timestamp)
@@ -115,7 +115,7 @@ class CodableNewsStore {
 		}
 	}
 
-	func deleteCachedFeed(completion: @escaping NewsStore.DeletionCompletion) {
+	func deleteCachedNews(completion: @escaping DeletionCompletion) {
 		guard FileManager.default.fileExists(atPath: storeURL.path) else {
  			return completion(nil)
  		}
@@ -287,7 +287,7 @@ class CodableNewsStoreTests: XCTestCase {
 	private func deleteCache(from sut: CodableNewsStore) -> Error? {
  		let exp = expectation(description: "Wait for cache deletion")
  		var deletionError: Error?
- 		sut.deleteCachedFeed { receivedDeletionError in
+ 		sut.deleteCachedNews { receivedDeletionError in
  			deletionError = receivedDeletionError
  			exp.fulfill()
  		}
