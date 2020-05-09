@@ -148,7 +148,7 @@ class CodableNewsStoreTests: XCTestCase {
 			op2.fulfill()
 		}
 
-		let op3 = expectation(description: "Operation 1")
+		let op3 = expectation(description: "Operation 3")
 		sut.insert(uniqueItems().local, timestamp: Date()) { _ in
 			completedOperationsInOrder.append(op3)
 			op3.fulfill()
